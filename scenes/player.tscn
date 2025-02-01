@@ -1,0 +1,80 @@
+[gd_scene load_steps=12 format=3 uid="uid://cm0cnm0hnigen"]
+
+[ext_resource type="Script" path="res://scripts/Player.cs" id="1_eixo2"]
+[ext_resource type="Texture2D" uid="uid://b6rm5807fa5ub" path="res://assets/player/idle_sheet.png" id="2_gryul"]
+[ext_resource type="Texture2D" uid="uid://cuel6h26tcqbn" path="res://assets/weapons/bow.png" id="3_ts1h0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vobhr"]
+size = Vector2(14, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7vg2"]
+atlas = ExtResource("2_gryul")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0l45n"]
+atlas = ExtResource("2_gryul")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxigg"]
+atlas = ExtResource("2_gryul")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0lf5"]
+atlas = ExtResource("2_gryul")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vqo4s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7vg2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0l45n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxigg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0lf5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igopj"]
+atlas = ExtResource("3_ts1h0")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2pn1t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igopj")
+}],
+"loop": false,
+"name": &"default",
+"speed": 0.0
+}]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animatedSprite")]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_eixo2")
+animatedSprite = NodePath("Character")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vobhr")
+
+[node name="Character" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vqo4s")
+animation = &"idle"
+frame = 2
+frame_progress = 0.811284
+
+[node name="Bow" type="AnimatedSprite2D" parent="."]
+position = Vector2(11, 1)
+scale = Vector2(0.6875, 0.6875)
+sprite_frames = SubResource("SpriteFrames_2pn1t")
+speed_scale = 0.0

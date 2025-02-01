@@ -58,11 +58,12 @@ animations = [{
 "speed": 0.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animatedSprite")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animatedSprite", "bowSprite")]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_eixo2")
 animatedSprite = NodePath("Character")
+bowSprite = NodePath("Bow")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_vobhr")
@@ -74,7 +75,7 @@ frame = 2
 frame_progress = 0.811284
 
 [node name="Bow" type="AnimatedSprite2D" parent="."]
-position = Vector2(11, 1)
+position = Vector2(9.53674e-07, 5.96046e-08)
 scale = Vector2(0.6875, 0.6875)
 sprite_frames = SubResource("SpriteFrames_2pn1t")
 speed_scale = 0.0

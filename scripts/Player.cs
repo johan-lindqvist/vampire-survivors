@@ -12,6 +12,11 @@ public partial class Player : CharacterBody2D, IHealthComponent
 	
 	[Export]
 	private AnimatedSprite2D animatedSprite;
+
+	[Export]
+	private AnimatedSprite2D bowSprite;
+
+	private float bowSpriteOffset = 20f;
 	
 	private PackedScene arrowScene = GD.Load<PackedScene>("res://scenes/arrow.tscn");
 
@@ -28,6 +33,8 @@ public partial class Player : CharacterBody2D, IHealthComponent
 	public override void _Process(double delta)
 	{
 		lookDirection = Position.AngleToPoint(GetGlobalMousePosition());
+
+		RotateBow();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -51,6 +58,13 @@ public partial class Player : CharacterBody2D, IHealthComponent
 	{
 		var inputDirection = Input.GetVector("left", "right", "up", "down");
 		Velocity = inputDirection * Speed;
+	}
+
+	private void RotateBow()
+	{
+		// Do this instead: https://rumble.com/vxl0u7-look-at-scaled.html
+		bowSprite.Position = (GetGlobalMousePosition() - Position).Normalized() * bowSpriteOffset;
+		bowSprite.Rotation = lookDirection;
 	}
 
 	public int ChangeHealth(int value)

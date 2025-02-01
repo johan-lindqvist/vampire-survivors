@@ -17,15 +17,11 @@ public partial class Player : CharacterBody2D, IHealthComponent
 
 	private float lookDirection = 0;
 	
-	public void GetInput()
-	{
-		Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
-		Velocity = inputDirection * Speed;
-	}
+	public static Player Instance { get; private set; }
 
 	public override void _Ready()
 	{
-		GameState.Player = this;
+		Instance = this;
 		animatedSprite.Play("idle");
 	}
 
@@ -49,6 +45,12 @@ public partial class Player : CharacterBody2D, IHealthComponent
 				FireArrow();
 			}
 		}
+	}
+
+	public void GetInput()
+	{
+		var inputDirection = Input.GetVector("left", "right", "up", "down");
+		Velocity = inputDirection * Speed;
 	}
 
 	public int ChangeHealth(int value)

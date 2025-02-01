@@ -9,19 +9,18 @@ public partial class WaveManager : Node2D
 
 	private int currentWaveIndex;
 
-	private int spawnedEnemiesFromWave = 0;
-	
-	private int deadEnemiesFromWave = 0;
+	private int spawnedEnemiesFromWave;
+
+	private int deadEnemiesFromWave;
 
 	private int[] waveAmounts = [10, 20, 30];
-	
-	[Export]
-	private Timer timer;
+
+	[Export] private Timer timer;
 
 	public override void _Ready()
 	{
 		timer.Timeout += TimerOnTimeout;
-		
+
 		StartWave(0);
 	}
 
@@ -43,7 +42,7 @@ public partial class WaveManager : Node2D
 			GD.Print("You completed the game!");
 			return;
 		}
-		
+
 		GD.Print($"Wave {currentWaveIndex} ended");
 		StartWave(currentWaveIndex + 1);
 	}
@@ -63,31 +62,27 @@ public partial class WaveManager : Node2D
 		var spawnedEnemy = enemyScene.Instantiate<Enemy>();
 		spawnedEnemy.Name = $"Enemy {spawnedEnemiesFromWave}";
 		var spawnPosition = GetRandomSpawn();
-		GD.Print(spawnPosition);
 		spawnedEnemy.Position = spawnPosition;
 		spawnedEnemy.OnDeath += OnEnemyDeath;
-		
+
 		GetTree().CurrentScene.AddChild(spawnedEnemy);
-		
+
 		spawnedEnemiesFromWave++;
-		
+
 		return;
-		
+
 		Vector2 GetRandomSpawn()
 		{
 			float angle = (float)(Random.Shared.NextDouble() * Math.PI * 2);
 			float distance = Random.Shared.Next(600, 800);
-			
+
 			return distance * Vector2.FromAngle(angle);
-			
-			// return new Vector2(distanceX * angle, distanceY * angle);
-			// int[] multipliers = [-1, 1];
-			// return startingValue * multipliers[Random.Shared.Next(multipliers.Length)] + Random.Shared.Next(50);
 		}
 	}
 
 	private void OnEnemyDeath(Enemy enemy)
 	{
+		enemy.OnDeath -= OnEnemyDeath;
 		deadEnemiesFromWave++;
 
 		if (deadEnemiesFromWave >= waveAmounts[currentWaveIndex])

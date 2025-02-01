@@ -22,7 +22,7 @@ public partial class Enemy : Area2D
 		AttackPlayer();
 	}
 
-	public override void _PhysicsProcess(double delta) => Position = Position.MoveToward(GameState.Player.Position, (float)delta * Speed);
+	public override void _PhysicsProcess(double delta) => Position = Position.MoveToward(Player.Instance.Position, (float)delta * Speed);
 
 	private void AttackPlayer()
 	{

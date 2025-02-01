@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=4 uid="uid://dwnp374k82enh"]
+[gd_scene load_steps=6 format=4 uid="uid://dwnp374k82enh"]
 
 [ext_resource type="PackedScene" uid="uid://cm0cnm0hnigen" path="res://scenes/player.tscn" id="1_qeg56"]
 [ext_resource type="Texture2D" uid="uid://cafs5qynxbjot" path="res://assets/tileset/environment_tileset.png" id="2_7usdc"]
-[ext_resource type="PackedScene" uid="uid://b8bvbixg2tndq" path="res://scenes/enemy.tscn" id="3_b2x2m"]
 [ext_resource type="PackedScene" uid="uid://ddtwilpnbwtvd" path="res://scenes/wave_manager.tscn" id="4_30t26"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jhxj8"]
@@ -126,8 +125,5 @@ collision_mask = 1
 Speed = 300
 
 [node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="Enemy" parent="." instance=ExtResource("3_b2x2m")]
-position = Vector2(166, -34)
 
 [node name="WaveManager" parent="." instance=ExtResource("4_30t26")]

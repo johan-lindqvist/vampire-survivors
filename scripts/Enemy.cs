@@ -10,12 +10,14 @@ public partial class Enemy : Area2D
 
 	[Export]
 	public Timer Timer;
-
+	
 	private Player collidingPlayer;
 	
 	private bool canAttack = true;
 	
 	public Action<Enemy> OnDeath;
+	
+	private PackedScene itemScene = ResourceLoader.Load<PackedScene>("res://scenes/item.tscn");
 
 	public override void _Process(double delta)
 	{
@@ -64,5 +66,14 @@ public partial class Enemy : Area2D
 	{
 		OnDeath?.Invoke(this);
 		QueueFree();
+		DropItem();
+	}
+
+	private void DropItem()
+	{
+		var item = itemScene.Instantiate<Item>();
+		GetTree().CurrentScene.CallDeferred(Node.MethodName.AddChild, item);
+		item.AddToGroup("items");
+		item.Position = Position;
 	}
 }

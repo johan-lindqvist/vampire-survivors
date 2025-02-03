@@ -8,11 +8,13 @@ public partial class Player : CharacterBody2D, IHealthComponent
 	public int Speed { get; set; } = 400;
 
 	[Export]
-	public int Health { get; set; } = 40;
+	public int Health { get; set; } = 100;
 	
 	public int Experience { get; private set; } = 0;
 	
 	public int Level { get; private set; } = 1;
+
+	[Export] private HealthBar healthBar;
 	
 	[Export]
 	private AnimatedSprite2D animatedSprite;
@@ -34,6 +36,7 @@ public partial class Player : CharacterBody2D, IHealthComponent
 		animatedSprite.Play("idle");
 		Ui.Instance.SetLevelLabel(Level);
 		Ui.Instance.SetExperienceBarMax(Level * 100);
+		healthBar.SetMaxHealth(Health);
 	}
 
 	public override void _Process(double delta)
@@ -77,7 +80,7 @@ public partial class Player : CharacterBody2D, IHealthComponent
 	{
 		Health = Mathf.Max(Health + value, 0);
 		
-		GD.Print($"Player health changed to: {Health}");
+		healthBar.SetHealth(Health);
 
 		if (Health <= 0)
 		{

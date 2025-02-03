@@ -1,24 +1,28 @@
+﻿using Godot;
 using System;
-using Godot;
 
 namespace VampireSurvivors.scripts;
 
-public partial class Enemy : EnemyBase
+public abstract partial class EnemyBase : Area2D
 {
-	private float speed = 100;
-	private int health = 100;
-
+	protected int Health { get; set; } = 100;
+	protected float Speed { get; set; } = 100f;
+	
 	[Export]
-	public Timer Timer;
+	private Timer timer;
 	
 	private Player collidingPlayer;
 	
 	private bool canAttack = true;
 	
-	public Action<Enemy> OnDeath;
+	public Action<EnemyBase> OnDeath;
 	
 	private PackedScene itemScene = ResourceLoader.Load<PackedScene>("res://scenes/item.tscn");
 
+	public void TakeDamage(int damage)
+	{
+		Health -= damage;
+	}
 	public override void _Process(double delta)
 	{
 		AttackPlayer();
@@ -26,20 +30,20 @@ public partial class Enemy : EnemyBase
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Position = Position.MoveToward(Player.Instance.Position, (float)delta * speed);
+		Position = Position.MoveToward(Player.Instance.Position, (float)delta * Speed);
 	}
 
 	private void AttackPlayer()
 	{
-		if (collidingPlayer == null || Timer.TimeLeft > 0)
+		if (collidingPlayer == null || timer.TimeLeft > 0)
 		{
 			return;
 		}
 
-		if (Timer.IsStopped())
+		if (timer.IsStopped())
 		{
-			Timer.OneShot = true;
-			Timer.Start();
+			timer.OneShot = true;
+			timer.Start();
 		}
 		
 		collidingPlayer.ChangeHealth(-10);

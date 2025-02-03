@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bacvd7l7dtero"]
+
+[ext_resource type="Script" path="res://scripts/Item.cs" id="1_fvjby"]
+[ext_resource type="Texture2D" uid="uid://cafs5qynxbjot" path="res://assets/tileset/environment_tileset.png" id="1_l7bri"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n4msf"]
+
+[node name="Item" type="Area2D"]
+collision_mask = 3
+script = ExtResource("1_fvjby")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_l7bri")
+region_enabled = true
+region_rect = Rect2(98.9031, 131.829, 10.3224, 10.1735)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_n4msf")
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]

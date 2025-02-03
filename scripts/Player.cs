@@ -10,6 +10,10 @@ public partial class Player : CharacterBody2D, IHealthComponent
 	[Export]
 	public int Health { get; set; } = 40;
 	
+	public int Experience { get; private set; } = 0;
+	
+	public int Level { get; private set; } = 1;
+	
 	[Export]
 	private AnimatedSprite2D animatedSprite;
 
@@ -28,6 +32,8 @@ public partial class Player : CharacterBody2D, IHealthComponent
 	{
 		Instance = this;
 		animatedSprite.Play("idle");
+		Ui.Instance.SetLevelLabel(Level);
+		Ui.Instance.SetExperienceBarMax(Level * 100);
 	}
 
 	public override void _Process(double delta)
@@ -79,6 +85,21 @@ public partial class Player : CharacterBody2D, IHealthComponent
 		}
 
 		return Health;
+	}
+
+	public void AddExperience(int value)
+	{
+		Experience += value;
+		Ui.Instance.SetExperienceBar(Experience);
+		
+		if (Experience >= Level * 100)
+		{
+			Level++;
+			Experience = 0;
+			Ui.Instance.SetLevelLabel(Level);
+			Ui.Instance.SetExperienceBar(0);
+			Ui.Instance.SetExperienceBarMax(Level * 100);
+		}
 	}
 
 	private void Die()

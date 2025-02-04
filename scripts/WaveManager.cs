@@ -1,5 +1,6 @@
 ﻿using System;
 using Godot;
+using VampireSurvivors.scripts.components;
 
 namespace VampireSurvivors.scripts;
 
@@ -59,7 +60,7 @@ public partial class WaveManager : Node2D
 
 	private void SpawnEnemy()
 	{
-		var spawnedEnemy = enemyScene.Instantiate<EnemyBase>();
+		var spawnedEnemy = enemyScene.Instantiate<SkeletonEnemy>();
 		spawnedEnemy.Name = $"Enemy {spawnedEnemiesFromWave}";
 		var spawnPosition = GetRandomSpawn();
 		spawnedEnemy.Position = spawnPosition;
@@ -80,7 +81,7 @@ public partial class WaveManager : Node2D
 		}
 	}
 
-	private void OnEnemyDeath(EnemyBase enemy)
+	private void OnEnemyDeath(SkeletonEnemy enemy)
 	{
 		enemy.OnDeath -= OnEnemyDeath;
 		deadEnemiesFromWave++;

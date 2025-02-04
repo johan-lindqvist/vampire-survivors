@@ -6,7 +6,7 @@ public partial class HitboxComponent : Area2D
 {
     [Export] private HealthComponent healthComponent;
 
-    private float Damage(float damage)
+    public float Damage(float damage)
     {
         return healthComponent.Damage(damage);
     }

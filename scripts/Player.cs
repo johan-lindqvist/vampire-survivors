@@ -26,8 +26,6 @@ public partial class Player : CharacterBody2D, IHealthComponent
 	
 	private PackedScene arrowScene = GD.Load<PackedScene>("res://scenes/arrow.tscn");
 
-	private float lookDirection = 0;
-	
 	public static Player Instance { get; private set; }
 
 	public override void _Ready()
@@ -41,9 +39,6 @@ public partial class Player : CharacterBody2D, IHealthComponent
 
 	public override void _Process(double delta)
 	{
-		lookDirection = Position.AngleToPoint(GetGlobalMousePosition());
-
-		RotateBow();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -52,28 +47,10 @@ public partial class Player : CharacterBody2D, IHealthComponent
 		MoveAndSlide();
 	}
 
-	public override void _Input(InputEvent @event)
-	{
-		if (@event is InputEventMouseButton mouseButton)
-		{
-			if (mouseButton.ButtonIndex == MouseButton.Left && mouseButton.Pressed)
-			{
-				FireArrow();
-			}
-		}
-	}
-
 	public void GetInput()
 	{
 		var inputDirection = Input.GetVector("left", "right", "up", "down");
 		Velocity = inputDirection * Speed;
-	}
-
-	private void RotateBow()
-	{
-		// Do this instead: https://rumble.com/vxl0u7-look-at-scaled.html
-		bowSprite.Position = (GetGlobalMousePosition() - Position).Normalized() * bowSpriteOffset;
-		bowSprite.Rotation = lookDirection;
 	}
 
 	public int ChangeHealth(int value)
@@ -108,14 +85,5 @@ public partial class Player : CharacterBody2D, IHealthComponent
 	private void Die()
 	{
 		GetTree().ReloadCurrentScene();
-	}
-
-	private void FireArrow()
-	{
-		var spawnedArrow = arrowScene.Instantiate<Arrow>();
-		
-		GetTree().CurrentScene.AddChild(spawnedArrow);
-		
-		spawnedArrow.Fire(Position, lookDirection);
 	}
 }

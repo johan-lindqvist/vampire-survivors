@@ -34,7 +34,7 @@ public partial class Arrow : Area2D
 
 	public void OnAreaEntered(Area2D area)
 	{
-		if (area is not Enemy enemy)
+		if (area is not EnemyBase enemy)
 		{
 			return;
 		}

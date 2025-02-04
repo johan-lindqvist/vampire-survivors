@@ -5,8 +5,9 @@ namespace VampireSurvivors.scripts;
 
 public partial class WaveManager : Node2D
 {
-	private PackedScene enemyScene = GD.Load<PackedScene>("res://scenes/enemy.tscn");
-
+	// private PackedScene enemyScene = GD.Load<PackedScene>("res://scenes/enemy.tscn");
+	private PackedScene enemyScene = GD.Load<PackedScene>("res://scenes/enemy_skeleton.tscn");
+	
 	private int currentWaveIndex;
 
 	private int spawnedEnemiesFromWave;
@@ -59,7 +60,7 @@ public partial class WaveManager : Node2D
 
 	private void SpawnEnemy()
 	{
-		var spawnedEnemy = enemyScene.Instantiate<Enemy>();
+		var spawnedEnemy = enemyScene.Instantiate<EnemyBase>();
 		spawnedEnemy.Name = $"Enemy {spawnedEnemiesFromWave}";
 		var spawnPosition = GetRandomSpawn();
 		spawnedEnemy.Position = spawnPosition;
@@ -80,7 +81,7 @@ public partial class WaveManager : Node2D
 		}
 	}
 
-	private void OnEnemyDeath(Enemy enemy)
+	private void OnEnemyDeath(EnemyBase enemy)
 	{
 		enemy.OnDeath -= OnEnemyDeath;
 		deadEnemiesFromWave++;

@@ -1,9 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://bhfyfxnldnql6"]
+[gd_scene load_steps=17 format=3 uid="uid://bhfyfxnldnql6"]
 
 [ext_resource type="Script" path="res://scripts/EnemySkeleton.cs" id="1_sig01"]
 [ext_resource type="Texture2D" uid="uid://ca285kb0tn4px" path="res://assets/enemies/skeleton/run_sheet.png" id="2_d1akt"]
 [ext_resource type="PackedScene" uid="uid://dvix6rxumgo02" path="res://scenes/components/health_component.tscn" id="3_kd44l"]
 [ext_resource type="PackedScene" uid="uid://rlkxwe1ymxwo" path="res://scenes/components/hitbox_component.tscn" id="4_7d87s"]
+[ext_resource type="PackedScene" uid="uid://2opy4tq8itjm" path="res://scenes/components/enemy_movement_component.tscn" id="5_6t8si"]
+[ext_resource type="PackedScene" uid="uid://b3adtd5s4a2tr" path="res://scenes/components/enemy_attack_component.tscn" id="6_7hwpc"]
+[ext_resource type="PackedScene" uid="uid://8gtgsl6opbe7" path="res://scenes/components/item_drop_component.tscn" id="6_wcywm"]
+[ext_resource type="PackedScene" uid="uid://bacvd7l7dtero" path="res://scenes/item.tscn" id="7_4yh77"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gvhve"]
 atlas = ExtResource("2_d1akt")
@@ -77,3 +81,11 @@ healthComponent = NodePath("../HealthComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(1, 19)
 shape = SubResource("CapsuleShape2D_eccme")
+
+[node name="EnemyMovementComponent" parent="." instance=ExtResource("5_6t8si")]
+
+[node name="EnemyAttackComponent" parent="." instance=ExtResource("6_7hwpc")]
+
+[node name="ItemDropComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("6_wcywm")]
+itemScene = ExtResource("7_4yh77")
+healthComponent = NodePath("../HealthComponent")

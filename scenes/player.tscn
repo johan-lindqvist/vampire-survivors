@@ -1,9 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://cm0cnm0hnigen"]
+[gd_scene load_steps=11 format=3 uid="uid://cm0cnm0hnigen"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_eixo2"]
 [ext_resource type="Texture2D" uid="uid://b6rm5807fa5ub" path="res://assets/player/idle_sheet.png" id="2_gryul"]
-[ext_resource type="Texture2D" uid="uid://cuel6h26tcqbn" path="res://assets/weapons/bow.png" id="3_ts1h0"]
-[ext_resource type="PackedScene" uid="uid://dtke2ccrklilh" path="res://scenes/health_bar.tscn" id="4_bp3rg"]
+[ext_resource type="PackedScene" uid="uid://dibwff61ev5ip" path="res://scenes/weapon.tscn" id="3_4a0al"]
+[ext_resource type="PackedScene" uid="uid://8sofdwfui6nr" path="res://scenes/health_bar.tscn" id="4_bp3rg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vobhr"]
 size = Vector2(14, 16)
@@ -44,28 +44,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_igopj"]
-atlas = ExtResource("3_ts1h0")
-region = Rect2(0, 0, 16, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_2pn1t"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_igopj")
-}],
-"loop": false,
-"name": &"default",
-"speed": 0.0
-}]
-
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("healthBar", "animatedSprite", "bowSprite")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("healthBar", "animatedSprite")]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_eixo2")
 healthBar = NodePath("HealthBar")
 animatedSprite = NodePath("Character")
-bowSprite = NodePath("Bow")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_vobhr")
@@ -76,14 +60,10 @@ animation = &"idle"
 frame = 2
 frame_progress = 0.811284
 
-[node name="Bow" type="AnimatedSprite2D" parent="."]
-position = Vector2(9.53674e-07, 5.96046e-08)
-scale = Vector2(0.6875, 0.6875)
-sprite_frames = SubResource("SpriteFrames_2pn1t")
-speed_scale = 0.0
-
 [node name="HealthBar" parent="." instance=ExtResource("4_bp3rg")]
 offset_left = -8.0
 offset_top = 18.0
 offset_right = -8.0
 offset_bottom = 18.0
+
+[node name="Weapon" parent="." instance=ExtResource("3_4a0al")]

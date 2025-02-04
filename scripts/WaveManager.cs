@@ -5,8 +5,7 @@ namespace VampireSurvivors.scripts;
 
 public partial class WaveManager : Node2D
 {
-	// private PackedScene enemyScene = GD.Load<PackedScene>("res://scenes/enemy.tscn");
-	private PackedScene enemyScene = GD.Load<PackedScene>("res://scenes/enemy_skeleton.tscn");
+	private PackedScene enemyScene = GD.Load<PackedScene>("res://scenes/enemies/skeleton_enemy.tscn");
 	
 	private int currentWaveIndex;
 

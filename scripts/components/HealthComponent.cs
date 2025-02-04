@@ -29,7 +29,7 @@ public partial class HealthComponent : Node2D
 
     private void Die()
     {
+        GetParent<EnemyBase>().Die();
         OnDeath?.Invoke();
-        QueueFree();
     }
 }

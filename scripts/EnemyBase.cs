@@ -3,7 +3,7 @@ using System;
 
 namespace VampireSurvivors.scripts;
 
-public abstract partial class EnemyBase : Area2D
+public abstract partial class EnemyBase : Node2D
 {
 	protected int Health { get; set; } = 100;
 	protected float Speed { get; set; } = 100f;

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://j452cbu4mvay"
-path="res://.godot/imported/vampire_v2_1.png-113422d41ec16d8f3cbf7b26b904cc58.ctex"
+uid="uid://bs3hnay8yx60h"
+path="res://.godot/imported/trees.png-917c6c7931e8517c8a56ab936b844dd6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/vampire/vampire_v2_1.png"
-dest_files=["res://.godot/imported/vampire_v2_1.png-113422d41ec16d8f3cbf7b26b904cc58.ctex"]
+source_file="res://assets/terrain/trees.png"
+dest_files=["res://.godot/imported/trees.png-917c6c7931e8517c8a56ab936b844dd6.ctex"]
 
 [params]
 

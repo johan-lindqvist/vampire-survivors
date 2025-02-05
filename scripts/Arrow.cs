@@ -34,8 +34,11 @@ public partial class Arrow : Area2D
 		{
 			return;
 		}
-		
-		enemy.Damage(damage);
-		QueueFree();
+
+		if (enemy.IsAlive)
+		{
+			enemy.Damage(damage);
+			QueueFree();
+		}
 	}
 }

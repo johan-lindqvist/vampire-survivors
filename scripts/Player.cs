@@ -32,8 +32,8 @@ public partial class Player : CharacterBody2D, IHealthComponent
 	{
 		Instance = this;
 		animatedSprite.Play("idle");
-		Ui.Instance.SetLevelLabel(Level);
-		Ui.Instance.SetExperienceBarMax(Level * 100);
+		UI.Instance.SetLevelLabel(Level);
+		UI.Instance.SetExperienceBarMax(Level * 100);
 		healthBar.SetMaxHealth(Health);
 	}
 
@@ -70,15 +70,15 @@ public partial class Player : CharacterBody2D, IHealthComponent
 	public void AddExperience(int value)
 	{
 		Experience += value;
-		Ui.Instance.SetExperienceBar(Experience);
+		UI.Instance.SetExperienceBar(Experience);
 		
 		if (Experience >= Level * 100)
 		{
 			Level++;
 			Experience = 0;
-			Ui.Instance.SetLevelLabel(Level);
-			Ui.Instance.SetExperienceBar(0);
-			Ui.Instance.SetExperienceBarMax(Level * 100);
+			UI.Instance.SetLevelLabel(Level);
+			UI.Instance.SetExperienceBar(0);
+			UI.Instance.SetExperienceBarMax(Level * 100);
 		}
 	}
 

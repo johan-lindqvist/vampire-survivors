@@ -1,12 +1,13 @@
 using Godot;
-using System;
 
-public partial class Ui : Control
+namespace VampireSurvivors.scripts;
+
+public partial class UI : CanvasLayer
 {
 	[Export] private ProgressBar experienceBar;
 	[Export] private Label levelLabel;
 	
-	public static Ui Instance;
+	public static UI Instance;
 	
 	public override void _Ready()
 	{

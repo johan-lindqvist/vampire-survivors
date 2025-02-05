@@ -1,7 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://bhfyfxnldnql6"]
+[gd_scene load_steps=27 format=3 uid="uid://bhfyfxnldnql6"]
 
-[ext_resource type="Script" path="res://scripts/SkeletonEnemy.cs" id="1_e23ey"]
+[ext_resource type="Script" path="res://scripts/Enemy.cs" id="1_rvw0s"]
 [ext_resource type="Texture2D" uid="uid://ca285kb0tn4px" path="res://assets/enemies/skeleton/run_sheet.png" id="2_d1akt"]
+[ext_resource type="PackedScene" uid="uid://ciuk50vrk7sq8" path="res://scenes/components/animation_component.tscn" id="2_dqyae"]
+[ext_resource type="Texture2D" uid="uid://dknwc26jabbj0" path="res://assets/enemies/skeleton/death_sheet.png" id="2_jd8jc"]
 [ext_resource type="PackedScene" uid="uid://dvix6rxumgo02" path="res://scenes/components/health_component.tscn" id="3_kd44l"]
 [ext_resource type="PackedScene" uid="uid://rlkxwe1ymxwo" path="res://scenes/components/hitbox_component.tscn" id="4_7d87s"]
 [ext_resource type="PackedScene" uid="uid://2opy4tq8itjm" path="res://scenes/components/enemy_movement_component.tscn" id="5_6t8si"]
@@ -9,73 +11,130 @@
 [ext_resource type="PackedScene" uid="uid://8gtgsl6opbe7" path="res://scenes/components/item_drop_component.tscn" id="6_wcywm"]
 [ext_resource type="PackedScene" uid="uid://bacvd7l7dtero" path="res://scenes/item.tscn" id="7_4yh77"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gvhve"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wy7xu"]
+atlas = ExtResource("2_jd8jc")
+region = Rect2(0, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yr07i"]
+atlas = ExtResource("2_jd8jc")
+region = Rect2(96, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ynbt"]
+atlas = ExtResource("2_jd8jc")
+region = Rect2(192, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bddwu"]
+atlas = ExtResource("2_jd8jc")
+region = Rect2(288, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0cjt"]
+atlas = ExtResource("2_jd8jc")
+region = Rect2(384, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wi4kc"]
+atlas = ExtResource("2_jd8jc")
+region = Rect2(480, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlmbm"]
+atlas = ExtResource("2_jd8jc")
+region = Rect2(576, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rawc"]
+atlas = ExtResource("2_jd8jc")
+region = Rect2(672, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_014kt"]
 atlas = ExtResource("2_d1akt")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e6oi3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qv884"]
 atlas = ExtResource("2_d1akt")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1mvb5"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xljeb"]
 atlas = ExtResource("2_d1akt")
 region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_r180v"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lm0tv"]
 atlas = ExtResource("2_d1akt")
 region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5qkyr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c6y0"]
 atlas = ExtResource("2_d1akt")
 region = Rect2(256, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kry7v"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_4oefs"]
 atlas = ExtResource("2_d1akt")
 region = Rect2(320, 0, 64, 64)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_n1a83"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_yvfra"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gvhve")
+"texture": SubResource("AtlasTexture_wy7xu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_e6oi3")
+"texture": SubResource("AtlasTexture_yr07i")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1mvb5")
+"texture": SubResource("AtlasTexture_4ynbt")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_r180v")
+"texture": SubResource("AtlasTexture_bddwu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5qkyr")
+"texture": SubResource("AtlasTexture_v0cjt")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kry7v")
+"texture": SubResource("AtlasTexture_wi4kc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vlmbm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1rawc")
+}],
+"loop": false,
+"name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_014kt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qv884")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xljeb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lm0tv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8c6y0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4oefs")
 }],
 "loop": true,
 "name": &"run",
-"speed": 5.0
+"speed": 8.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eccme"]
 radius = 12.0
 height = 40.0
 
-[node name="SkeletonEnemy" type="Node2D" node_paths=PackedStringArray("healthComponent")]
-script = ExtResource("1_e23ey")
+[node name="SkeletonEnemy" type="Node2D" node_paths=PackedStringArray("healthComponent", "animationComponent")]
+script = ExtResource("1_rvw0s")
 healthComponent = NodePath("HealthComponent")
+animationComponent = NodePath("AnimationComponent")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-1, -32)
-sprite_frames = SubResource("SpriteFrames_n1a83")
-animation = &"run"
-autoplay = "run"
-
-[node name="Timer" type="Timer" parent="."]
-
-[node name="HealthComponent" parent="." instance=ExtResource("3_kd44l")]
+[node name="AnimationComponent" parent="." instance=ExtResource("2_dqyae")]
+position = Vector2(0, -32)
+sprite_frames = SubResource("SpriteFrames_yvfra")
+animation = &"death"
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_7d87s")]
 healthComponent = NodePath("../HealthComponent")
@@ -83,6 +142,8 @@ healthComponent = NodePath("../HealthComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, -14)
 shape = SubResource("CapsuleShape2D_eccme")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_kd44l")]
 
 [node name="EnemyMovementComponent" parent="." node_paths=PackedStringArray("enemy") instance=ExtResource("5_6t8si")]
 enemy = NodePath("..")

@@ -10,7 +10,7 @@ public partial class Arrow : Area2D
 	private float speed = 300f;
 
 	private Vector2 startingPosition;
-	
+
 	public override void _Ready()
 	{
 		Name = "Arrow";
@@ -26,19 +26,16 @@ public partial class Arrow : Area2D
 			QueueFree();
 		}
 	}
-	
+
 	public void OnAreaEntered(Area2D area)
 	{
 		// Use interface and call "take damage" or something on the enemy
-		if (area is not HitboxComponent enemy)
+		if (area is not IHitboxComponent enemy)
 		{
 			return;
 		}
 
-		if (enemy.IsAlive)
-		{
-			enemy.Damage(damage);
-			QueueFree();
-		}
+		enemy.Damage(damage);
+		QueueFree();
 	}
 }

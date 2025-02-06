@@ -9,8 +9,6 @@ public partial class HealthComponent : Node2D
 	
 	[Export] public float Health = 10f;
 
-	public bool IsAlive = true;
-
 	public Action OnDeath;
 
 	public override void _Ready()
@@ -20,6 +18,11 @@ public partial class HealthComponent : Node2D
 
 	public float Damage(float damage)
 	{
+		if (Health <= 0)
+		{
+			return 0;
+		}
+		
 		Health = Mathf.Max(Health - damage, 0f);
 
 		if (Health <= 0)
@@ -32,7 +35,7 @@ public partial class HealthComponent : Node2D
 
 	private void Die()
 	{
-		IsAlive = false;
+		Health = 0;
 		OnDeath?.Invoke();
 	}
 }

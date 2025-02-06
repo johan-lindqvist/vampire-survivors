@@ -1,9 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://b3adtd5s4a2tr"]
 
-[ext_resource type="Script" path="res://scripts/components/EnemyAttackComponent.cs" id="1_fdohb"]
+[ext_resource type="Script" path="res://scripts/enemies/EnemyAttackComponent.cs" id="1_yam5i"]
 
 [node name="EnemyAttackComponent" type="Node2D" node_paths=PackedStringArray("timer")]
-script = ExtResource("1_fdohb")
+script = ExtResource("1_yam5i")
 timer = NodePath("Timer")
 
 [node name="Timer" type="Timer" parent="."]
+one_shot = true

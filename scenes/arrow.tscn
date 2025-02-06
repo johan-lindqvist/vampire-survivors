@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b2t2jx08c15td"]
 
 [ext_resource type="Texture2D" uid="uid://7rm5qx557wab" path="res://assets/player/arrow.png" id="1_1n4wg"]
-[ext_resource type="Script" path="res://scripts/Arrow.cs" id="1_bu7ee"]
+[ext_resource type="Script" path="res://scripts/weapons/Arrow.cs" id="1_bu7ee"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d40pi"]
 radius = 7.0

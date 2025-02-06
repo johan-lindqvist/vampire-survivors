@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://2opy4tq8itjm"]
 
-[ext_resource type="Script" path="res://scripts/components/EnemyMovementComponent.cs" id="1_aktng"]
+[ext_resource type="Script" path="res://scripts/enemies/EnemyMovementComponent.cs" id="1_bgik8"]
 
 [node name="EnemyMovementComponent" type="Node2D"]
-script = ExtResource("1_aktng")
+script = ExtResource("1_bgik8")

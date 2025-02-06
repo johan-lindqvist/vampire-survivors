@@ -1,21 +1,22 @@
 using Godot;
+using VampireSurvivors.scripts.ui;
 
-namespace VampireSurvivors.scripts;
+namespace VampireSurvivors.scripts.player;
 
-public partial class Player : CharacterBody2D, IHealthComponent
+public partial class Player : CharacterBody2D
 {
 	[Export]
 	public int Speed { get; set; } = 400;
 
 	[Export]
 	public int Health { get; set; } = 100;
-	
+
 	public int Experience { get; private set; } = 0;
-	
+
 	public int Level { get; private set; } = 1;
 
 	[Export] private HealthBar healthBar;
-	
+
 	[Export]
 	private AnimatedSprite2D animatedSprite;
 
@@ -23,7 +24,7 @@ public partial class Player : CharacterBody2D, IHealthComponent
 	private AnimatedSprite2D bowSprite;
 
 	private float bowSpriteOffset = 20f;
-	
+
 	private PackedScene arrowScene = GD.Load<PackedScene>("res://scenes/arrow.tscn");
 
 	public static Player Instance { get; private set; }
@@ -56,7 +57,7 @@ public partial class Player : CharacterBody2D, IHealthComponent
 	public int ChangeHealth(int value)
 	{
 		Health = Mathf.Max(Health + value, 0);
-		
+
 		healthBar.SetHealth(Health);
 
 		if (Health <= 0)
@@ -71,7 +72,7 @@ public partial class Player : CharacterBody2D, IHealthComponent
 	{
 		Experience += value;
 		UI.Instance.SetExperienceBar(Experience);
-		
+
 		if (Experience >= Level * 100)
 		{
 			Level++;

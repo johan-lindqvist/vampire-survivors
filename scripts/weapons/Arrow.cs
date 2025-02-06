@@ -1,15 +1,17 @@
 using Godot;
 using VampireSurvivors.scripts.components;
 
-namespace VampireSurvivors.scripts;
+namespace VampireSurvivors.scripts.weapons;
 
-public partial class Arrow : Area2D
+public partial class Arrow : Area2D, IDamageAttribute, IStunAttribute
 {
-	private float damage = 10;
-
 	private float speed = 300f;
 
 	private Vector2 startingPosition;
+
+	public float Damage => 1f;
+
+	public float StunDuration => 1f;
 
 	public override void _Ready()
 	{
@@ -29,13 +31,23 @@ public partial class Arrow : Area2D
 
 	public void OnAreaEntered(Area2D area)
 	{
-		// Use interface and call "take damage" or something on the enemy
-		if (area is not IHitboxComponent enemy)
+		if (area is not HitboxComponent hitbox)
 		{
 			return;
 		}
 
-		enemy.Damage(damage);
+		hitbox.Hit(this);
 		QueueFree();
 	}
+
+}
+
+public interface IDamageAttribute
+{
+	float Damage { get; }
+}
+
+public interface IStunAttribute
+{
+	float StunDuration { get; }
 }

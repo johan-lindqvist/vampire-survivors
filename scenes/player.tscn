@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://cm0cnm0hnigen"]
 
-[ext_resource type="Script" path="res://scripts/Player.cs" id="1_eixo2"]
+[ext_resource type="Script" path="res://scripts/player/Player.cs" id="1_v4t6v"]
 [ext_resource type="Texture2D" uid="uid://b6rm5807fa5ub" path="res://assets/player/idle_sheet.png" id="2_gryul"]
 [ext_resource type="PackedScene" uid="uid://dibwff61ev5ip" path="res://scenes/weapon.tscn" id="3_4a0al"]
 [ext_resource type="PackedScene" uid="uid://8sofdwfui6nr" path="res://scenes/health_bar.tscn" id="4_bp3rg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vobhr"]
-size = Vector2(14, 16)
+size = Vector2(14, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f7vg2"]
 atlas = ExtResource("2_gryul")
@@ -44,14 +44,16 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("healthBar", "animatedSprite")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("healthBar", "animatedSprite", "bowSprite")]
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("1_eixo2")
+script = ExtResource("1_v4t6v")
 healthBar = NodePath("HealthBar")
 animatedSprite = NodePath("Character")
+bowSprite = NodePath("Character")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_vobhr")
 
 [node name="Character" type="AnimatedSprite2D" parent="."]

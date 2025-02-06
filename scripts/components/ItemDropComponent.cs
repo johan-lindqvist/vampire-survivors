@@ -14,7 +14,7 @@ public partial class ItemDropComponent : Node2D
 
 	private void OnDeath()
 	{
-		var item = itemScene.Instantiate<Item>();
+		var item = itemScene.Instantiate<items.Item>();
 		GetTree().CurrentScene.CallDeferred(Node.MethodName.AddChild, item);
 		item.AddToGroup("items");
 		item.Position = GlobalPosition;

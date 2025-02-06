@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://dd4m3as575pnm"]
 
-[ext_resource type="Script" path="res://scripts/UI.cs" id="1_6dj5s"]
+[ext_resource type="Script" path="res://scripts/ui/UI.cs" id="1_e5py5"]
 
 [node name="UI" type="CanvasLayer" node_paths=PackedStringArray("experienceBar", "levelLabel")]
-script = ExtResource("1_6dj5s")
+script = ExtResource("1_e5py5")
 experienceBar = NodePath("Control/MarginContainer/VBoxContainer/ProgressBar")
 levelLabel = NodePath("Control/MarginContainer/VBoxContainer/HBoxContainer/Label2")
 

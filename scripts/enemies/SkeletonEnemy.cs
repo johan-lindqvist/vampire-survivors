@@ -2,14 +2,14 @@
 using Godot;
 using VampireSurvivors.scripts.components;
 
-namespace VampireSurvivors.scripts;
+namespace VampireSurvivors.scripts.enemies;
 
 public partial class SkeletonEnemy : Node2D
 {
 	[Export] private HealthComponent healthComponent;
 
 	public Action<SkeletonEnemy> OnDeath;
-	
+
 	public override void _Ready()
 	{
 		healthComponent.OnDeath += OnDeathHandler;

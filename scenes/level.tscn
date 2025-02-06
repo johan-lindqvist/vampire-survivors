@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://cqs3cnccqic3g"]
+[gd_scene load_steps=7 format=4 uid="uid://b2yc6cnjmn31t"]
 
 [ext_resource type="Texture2D" uid="uid://bkgqgrihjbdn0" path="res://assets/terrain/tiles.png" id="1_kvm30"]
 [ext_resource type="Texture2D" uid="uid://bs3hnay8yx60h" path="res://assets/terrain/trees.png" id="2_is2ku"]

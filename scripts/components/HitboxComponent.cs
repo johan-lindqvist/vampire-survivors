@@ -1,18 +1,25 @@
 using Godot;
+using VampireSurvivors.scripts.enemies;
+using VampireSurvivors.scripts.weapons;
 
 namespace VampireSurvivors.scripts.components;
 
-public partial class HitboxComponent : Area2D, IHitboxComponent
+public partial class HitboxComponent : Area2D
 {
-	[Export] private HealthComponent healthComponent;
+	[Export] private HealthComponent? healthComponent;
 
-	public float Damage(float damage)
+	[Export] private EnemyMovementComponent? movementComponent;
+
+	public void Hit(Node hittingNode)
 	{
-		return healthComponent.Damage(damage);
-	}
-}
+		if (hittingNode is IDamageAttribute damageAttribute)
+		{
+			healthComponent?.Damage(damageAttribute);
+		}
 
-public interface IHitboxComponent
-{
-	float Damage(float damage);
+		if (hittingNode is IStunAttribute stunAttribute)
+		{
+			movementComponent?.Stun(stunAttribute);
+		}
+	}
 }

@@ -1,6 +1,6 @@
 using Godot;
 
-namespace VampireSurvivors.scripts;
+namespace VampireSurvivors.scripts.ui;
 
 public partial class UI : CanvasLayer
 {

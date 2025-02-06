@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace VampireSurvivors.scripts;
+namespace VampireSurvivors.scripts.weapons;
 
 public partial class Weapon : Node2D
 {
@@ -8,12 +8,12 @@ public partial class Weapon : Node2D
 
 	[Export]
 	private Marker2D shootingPoint;
-	
+
 	public override void _PhysicsProcess(double delta)
 	{
 		LookAt(GetGlobalMousePosition());
 	}
-	
+
 	public override void _Input(InputEvent @event)
 	{
 		if (@event is InputEventMouseButton mouseButton)

@@ -1,6 +1,7 @@
 using Godot;
+using VampireSurvivors.scripts.player;
 
-namespace VampireSurvivors.scripts.components;
+namespace VampireSurvivors.scripts.enemies;
 
 public partial class EnemyAttackComponent : Node2D
 {

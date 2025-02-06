@@ -60,7 +60,7 @@ public partial class WaveManager : Node2D
 
 	private void SpawnEnemy()
 	{
-		var spawnedEnemy = enemyScene.Instantiate<Enemy>();
+		var spawnedEnemy = enemyScene.Instantiate<enemies.Enemy>();
 		spawnedEnemy.Name = $"Enemy {spawnedEnemiesFromWave}";
 		var spawnPosition = GetRandomSpawn();
 		spawnedEnemy.Position = spawnPosition;
@@ -81,7 +81,7 @@ public partial class WaveManager : Node2D
 		}
 	}
 
-	private void OnEnemyDeath(Enemy enemy)
+	private void OnEnemyDeath(enemies.Enemy enemy)
 	{
 		enemy.OnDeath -= OnEnemyDeath;
 		deadEnemiesFromWave++;

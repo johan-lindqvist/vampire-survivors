@@ -1,8 +1,8 @@
 [gd_scene load_steps=27 format=3 uid="uid://bhfyfxnldnql6"]
 
-[ext_resource type="Script" path="res://scripts/Enemy.cs" id="1_rvw0s"]
+[ext_resource type="Script" path="res://scripts/enemies/Enemy.cs" id="1_wi50l"]
 [ext_resource type="Texture2D" uid="uid://ca285kb0tn4px" path="res://assets/enemies/skeleton/run_sheet.png" id="2_d1akt"]
-[ext_resource type="PackedScene" uid="uid://ciuk50vrk7sq8" path="res://scenes/components/animation_component.tscn" id="2_dqyae"]
+[ext_resource type="PackedScene" uid="uid://sq2uw76fplh5" path="res://scenes/components/animation_component.tscn" id="2_dqyae"]
 [ext_resource type="Texture2D" uid="uid://dknwc26jabbj0" path="res://assets/enemies/skeleton/death_sheet.png" id="2_jd8jc"]
 [ext_resource type="PackedScene" uid="uid://dvix6rxumgo02" path="res://scenes/components/health_component.tscn" id="3_kd44l"]
 [ext_resource type="PackedScene" uid="uid://rlkxwe1ymxwo" path="res://scenes/components/hitbox_component.tscn" id="4_7d87s"]
@@ -126,18 +126,20 @@ animations = [{
 radius = 12.0
 height = 40.0
 
-[node name="SkeletonEnemy" type="Node2D" node_paths=PackedStringArray("healthComponent", "animationComponent")]
-script = ExtResource("1_rvw0s")
+[node name="SkeletonEnemy" type="Node2D" node_paths=PackedStringArray("healthComponent", "animationComponent", "hitboxComponent")]
+script = ExtResource("1_wi50l")
 healthComponent = NodePath("HealthComponent")
 animationComponent = NodePath("AnimationComponent")
+hitboxComponent = NodePath("HitboxComponent")
 
 [node name="AnimationComponent" parent="." instance=ExtResource("2_dqyae")]
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_yvfra")
 animation = &"death"
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_7d87s")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("healthComponent", "movementComponent") instance=ExtResource("4_7d87s")]
 healthComponent = NodePath("../HealthComponent")
+movementComponent = NodePath("../EnemyMovementComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, -14)

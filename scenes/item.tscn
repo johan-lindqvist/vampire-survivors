@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://bacvd7l7dtero"]
 
-[ext_resource type="Script" path="res://scripts/Item.cs" id="1_fvjby"]
+[ext_resource type="Script" path="res://scripts/items/Item.cs" id="1_hkhap"]
 [ext_resource type="Texture2D" uid="uid://cafs5qynxbjot" path="res://assets/tileset/environment_tileset.png" id="1_l7bri"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n4msf"]
 
 [node name="Item" type="Area2D"]
 collision_mask = 3
-script = ExtResource("1_fvjby")
+script = ExtResource("1_hkhap")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_l7bri")

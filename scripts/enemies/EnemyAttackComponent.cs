@@ -11,8 +11,6 @@ public partial class EnemyAttackComponent : Node2D
 
 	private Player collidingPlayer;
 
-	private bool canAttack = true;
-
 	public override void _Process(double delta)
 	{
 		AttackPlayer();
@@ -20,6 +18,8 @@ public partial class EnemyAttackComponent : Node2D
 
 	private void OnBodyEntered(Node2D node)
 	{
+		GD.Print(node.Name);
+
 		if (node is not Player player)
 		{
 			return;
@@ -51,6 +51,6 @@ public partial class EnemyAttackComponent : Node2D
 			timer.Start();
 		}
 
-		collidingPlayer.ChangeHealth((int)attackDamage);
+		collidingPlayer.ChangeHealth((int)-attackDamage);
 	}
 }

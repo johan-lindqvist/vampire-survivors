@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bhfyfxnldnql6"]
+[gd_scene load_steps=28 format=3 uid="uid://bhfyfxnldnql6"]
 
 [ext_resource type="Script" path="res://scripts/enemies/Enemy.cs" id="1_wi50l"]
 [ext_resource type="Texture2D" uid="uid://ca285kb0tn4px" path="res://assets/enemies/skeleton/run_sheet.png" id="2_d1akt"]
@@ -126,20 +126,24 @@ animations = [{
 radius = 12.0
 height = 40.0
 
-[node name="SkeletonEnemy" type="Node2D" node_paths=PackedStringArray("healthComponent", "animationComponent", "hitboxComponent")]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nytn2"]
+height = 34.0
+
+[node name="SkeletonEnemy" type="Node2D" node_paths=PackedStringArray("healthComponent", "animationComponent", "hitboxComponent", "movementComponent", "itemDropComponent")]
 script = ExtResource("1_wi50l")
 healthComponent = NodePath("HealthComponent")
 animationComponent = NodePath("AnimationComponent")
 hitboxComponent = NodePath("HitboxComponent")
+movementComponent = NodePath("EnemyMovementComponent")
+itemDropComponent = NodePath("ItemDropComponent")
 
 [node name="AnimationComponent" parent="." instance=ExtResource("2_dqyae")]
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_yvfra")
 animation = &"death"
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("healthComponent", "movementComponent") instance=ExtResource("4_7d87s")]
-healthComponent = NodePath("../HealthComponent")
-movementComponent = NodePath("../EnemyMovementComponent")
+[node name="HitboxComponent" parent="." instance=ExtResource("4_7d87s")]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, -14)
@@ -152,6 +156,13 @@ enemy = NodePath("..")
 
 [node name="EnemyAttackComponent" parent="." instance=ExtResource("6_7hwpc")]
 
-[node name="ItemDropComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("6_wcywm")]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyAttackComponent"]
+position = Vector2(-1, -15)
+shape = SubResource("CapsuleShape2D_nytn2")
+
+[node name="ItemDropComponent" parent="." instance=ExtResource("6_wcywm")]
+visible = false
 itemScene = ExtResource("7_4yh77")
-healthComponent = NodePath("../HealthComponent")
+
+[connection signal="body_entered" from="EnemyAttackComponent" to="EnemyAttackComponent" method="OnBodyEntered"]
+[connection signal="body_exited" from="EnemyAttackComponent" to="EnemyAttackComponent" method="OnBodyExited"]

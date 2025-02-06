@@ -36,8 +36,7 @@ public partial class Arrow : Area2D, IDamageAttribute, IStunAttribute
 			return;
 		}
 
-		hitbox.Hit(this);
-		QueueFree();
+		hitbox.Hit(this, QueueFree);
 	}
 
 }

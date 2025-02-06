@@ -12,6 +12,8 @@ public partial class HealthComponent : Node2D
 
 	public Action? OnDeath;
 
+	public bool IsAlive => Health > 0;
+
 	public override void _Ready()
 	{
 		Health = MaxHealth;
@@ -19,11 +21,6 @@ public partial class HealthComponent : Node2D
 
 	public void Damage(IDamageAttribute damageAttribute)
 	{
-		if (Health <= 0)
-		{
-			return;
-		}
-
 		Health = Mathf.Max(Health - damageAttribute.Damage, 0f);
 
 		if (Health <= 0)

@@ -38,7 +38,6 @@ public partial class Arrow : Area2D, IDamageAttribute, IStunAttribute
 
 		hitbox.Hit(this, QueueFree);
 	}
-
 }
 
 public interface IDamageAttribute

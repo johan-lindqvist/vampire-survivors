@@ -1,25 +1,40 @@
 ﻿using System;
 using Godot;
+using GodotUtilities;
 using VampireSurvivors.scripts.components;
 using VampireSurvivors.scripts.weapons;
 
 namespace VampireSurvivors.scripts.enemies;
 
+[Scene]
 public partial class Enemy : Node2D
 {
-	[Export] private HealthComponent healthComponent;
+	[Node]
+	private HealthComponent healthComponent = null!;
 
-	[Export] private AnimationComponent animationComponent;
+	[Node]
+	private AnimationComponent animationComponent = null!;
 
-	[Export] private HitboxComponent hitboxComponent;
+	[Node]
+	private HitboxComponent hitboxComponent = null!;
 
-	[Export] private EnemyMovementComponent movementComponent;
+	[Node]
+	private EnemyMovementComponent enemyMovementComponent = null!;
 
-	[Export] private ItemDropComponent? itemDropComponent;
+	[Node]
+	private ItemDropComponent itemDropComponent = null!;
 
 	public Action<Enemy>? OnDeath;
 
 	private bool isDead;
+
+	public override void _Notification(int what)
+	{
+		if (what == NotificationSceneInstantiated)
+		{
+			WireNodes();
+		}
+	}
 
 	public override void _Ready()
 	{
@@ -31,6 +46,7 @@ public partial class Enemy : Node2D
 	private void OnDeathHandler()
 	{
 		healthComponent.OnDeath -= OnDeathHandler;
+		hitboxComponent.OnHit -= OnHit;
 		isDead = true;
 		OnDeath?.Invoke(this);
 		itemDropComponent?.DropItem();
@@ -51,7 +67,7 @@ public partial class Enemy : Node2D
 
 		if (node is IStunAttribute stunAttribute)
 		{
-			movementComponent?.Stun(stunAttribute);
+			enemyMovementComponent?.Stun(stunAttribute);
 		}
 
 		onHitCallback?.Invoke();

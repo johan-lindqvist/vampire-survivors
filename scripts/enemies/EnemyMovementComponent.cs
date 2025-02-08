@@ -5,16 +5,15 @@ namespace VampireSurvivors.scripts.enemies;
 
 public partial class EnemyMovementComponent : Node2D
 {
-	[Export] public float Speed = 100f;
+	[Export]
+	public float Speed = 100f;
 
-	[Export] private Enemy enemy = null!;
+	[Export]
+	private Enemy enemy = null!;
 
 	private bool canMove = true;
 
-	private Timer stunTimer = new()
-	{
-		OneShot = true
-	};
+	private Timer stunTimer = new() { OneShot = true };
 
 	public override void _Ready()
 	{

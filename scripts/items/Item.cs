@@ -2,6 +2,7 @@ using Godot;
 using VampireSurvivors.scripts.player;
 
 namespace VampireSurvivors.scripts.items;
+
 public partial class Item : Area2D
 {
 	private int experience = 10;

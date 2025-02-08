@@ -1,15 +1,27 @@
 using Godot;
+using GodotUtilities;
 using VampireSurvivors.scripts.player;
 
 namespace VampireSurvivors.scripts.enemies;
 
-public partial class EnemyAttackComponent : Node2D
+[Scene]
+public partial class EnemyAttackComponent : Area2D
 {
-	[Export] private float attackDamage = 10f;
+	[Export]
+	private float attackDamage = 10f;
 
-	[Export] private Timer timer;
+	[Node]
+	private Timer timer = null!;
 
-	private Player collidingPlayer;
+	private Player? collidingPlayer;
+
+	public override void _Notification(int what)
+	{
+		if (what == NotificationSceneInstantiated)
+		{
+			WireNodes();
+		}
+	}
 
 	public override void _Process(double delta)
 	{

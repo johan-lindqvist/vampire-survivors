@@ -1,8 +1,10 @@
 using Godot;
+using GodotUtilities;
 using VampireSurvivors.scripts.ui;
 
 namespace VampireSurvivors.scripts.player;
 
+[Scene]
 public partial class Player : CharacterBody2D
 {
 	[Export]
@@ -15,32 +17,34 @@ public partial class Player : CharacterBody2D
 
 	public int Level { get; private set; } = 1;
 
-	[Export] private HealthBar healthBar;
+	[Node]
+	private HealthBar healthBar = null!;
 
-	[Export]
-	private AnimatedSprite2D animatedSprite;
-
-	[Export]
-	private AnimatedSprite2D bowSprite;
-
-	private float bowSpriteOffset = 20f;
+	[Node]
+	private AnimatedSprite2D characterSprite = null!;
 
 	private PackedScene arrowScene = GD.Load<PackedScene>("res://scenes/arrow.tscn");
 
-	public static Player Instance { get; private set; }
+	public static Player Instance { get; private set; } = null!;
+
+	public override void _Notification(int what)
+	{
+		if (what == NotificationSceneInstantiated)
+		{
+			WireNodes();
+		}
+	}
 
 	public override void _Ready()
 	{
 		Instance = this;
-		animatedSprite.Play("idle");
+		characterSprite.Play("idle");
 		UI.Instance.SetLevelLabel(Level);
 		UI.Instance.SetExperienceBarMax(Level * 100);
 		healthBar.SetMaxHealth(Health);
 	}
 
-	public override void _Process(double delta)
-	{
-	}
+	public override void _Process(double delta) { }
 
 	public override void _PhysicsProcess(double delta)
 	{

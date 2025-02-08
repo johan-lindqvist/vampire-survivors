@@ -2,9 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/enemies/EnemyAttackComponent.cs" id="1_yam5i"]
 
-[node name="EnemyAttackComponent" type="Area2D" node_paths=PackedStringArray("timer")]
+[node name="EnemyAttackComponent" type="Area2D"]
 script = ExtResource("1_yam5i")
-timer = NodePath("Timer")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

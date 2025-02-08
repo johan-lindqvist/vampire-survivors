@@ -18,9 +18,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Weapon" type="Node2D" node_paths=PackedStringArray("shootingPoint")]
+[node name="Weapon" type="Node2D"]
 script = ExtResource("1_g5535")
-shootingPoint = NodePath("WeaponPivot/Bow/ShootingPoint")
 
 [node name="WeaponPivot" type="Marker2D" parent="."]
 
@@ -30,4 +29,5 @@ sprite_frames = SubResource("SpriteFrames_f1rsa")
 animation = &"bow"
 
 [node name="ShootingPoint" type="Marker2D" parent="WeaponPivot/Bow"]
+unique_name_in_owner = true
 position = Vector2(6, 0)

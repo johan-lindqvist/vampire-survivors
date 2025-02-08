@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/ui/UI.cs" id="1_e5py5"]
 
-[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("experienceBar", "levelLabel")]
+[node name="UI" type="CanvasLayer"]
 script = ExtResource("1_e5py5")
-experienceBar = NodePath("Control/MarginContainer/VBoxContainer/ProgressBar")
-levelLabel = NodePath("Control/MarginContainer/VBoxContainer/HBoxContainer/Label2")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -31,7 +29,8 @@ theme_override_constants/margin_bottom = 24
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="ProgressBar" type="ProgressBar" parent="Control/MarginContainer/VBoxContainer"]
+[node name="ExperienceBar" type="ProgressBar" parent="Control/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 step = 1.0
 show_percentage = false
@@ -39,10 +38,11 @@ show_percentage = false
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LevelText" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Level:"
 
-[node name="Label2" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LevelValue" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "88"

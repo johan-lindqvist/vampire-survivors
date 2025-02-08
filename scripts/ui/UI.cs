@@ -1,17 +1,38 @@
 using Godot;
+using GodotUtilities;
 
 namespace VampireSurvivors.scripts.ui;
 
+[Scene]
 public partial class UI : CanvasLayer
 {
-	[Export] private ProgressBar experienceBar;
-	[Export] private Label levelLabel;
-	
-	public static UI Instance;
-	
+	[Node]
+	private ProgressBar experienceBar = null!;
+
+	[Node]
+	private Label levelValue = null!;
+
+	public static UI Instance { get; private set; } = null!;
+
+	public override void _Notification(int what)
+	{
+		if (what == NotificationSceneInstantiated)
+		{
+			WireNodes();
+		}
+	}
+
 	public override void _Ready()
 	{
 		Instance = this;
+	}
+
+	public override void _Process(double delta)
+	{
+		if (Input.IsActionPressed("quit"))
+		{
+			GetTree().Quit();
+		}
 	}
 
 	public void SetExperienceBar(int currentValue)
@@ -26,6 +47,6 @@ public partial class UI : CanvasLayer
 
 	public void SetLevelLabel(int value)
 	{
-		levelLabel.Text = value.ToString();
+		levelValue.Text = value.ToString();
 	}
 }

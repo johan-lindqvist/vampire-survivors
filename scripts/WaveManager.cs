@@ -1,5 +1,6 @@
 ﻿using System;
 using Godot;
+using GodotUtilities;
 using VampireSurvivors.scripts.components;
 
 namespace VampireSurvivors.scripts;
@@ -7,7 +8,7 @@ namespace VampireSurvivors.scripts;
 public partial class WaveManager : Node2D
 {
 	private PackedScene enemyScene = GD.Load<PackedScene>("res://scenes/enemies/skeleton_enemy.tscn");
-	
+
 	private int currentWaveIndex;
 
 	private int spawnedEnemiesFromWave;
@@ -16,10 +17,12 @@ public partial class WaveManager : Node2D
 
 	private int[] waveAmounts = [10, 20, 30];
 
-	[Export] private Timer timer;
+	private Timer timer = new() { OneShot = true, WaitTime = 0.3f };
 
 	public override void _Ready()
 	{
+		AddChild(timer);
+
 		timer.Timeout += TimerOnTimeout;
 
 		StartWave(0);

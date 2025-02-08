@@ -5,7 +5,8 @@ namespace VampireSurvivors.scripts.components;
 
 public partial class ItemDropComponent : Node2D
 {
-	[Export] private PackedScene itemScene;
+	[Export]
+	private PackedScene itemScene = null!;
 
 	public void DropItem()
 	{

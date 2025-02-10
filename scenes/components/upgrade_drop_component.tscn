@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3trujswudy1r"]
+
+[ext_resource type="Script" path="res://scripts/enemies/UpgradeDropComponent.cs" id="1_ss4rq"]
+[ext_resource type="PackedScene" uid="uid://b2r805uah68yj" path="res://scenes/upgrade.tscn" id="2_qtpcy"]
+
+[node name="UpgradeDropComponent" type="Node2D"]
+script = ExtResource("1_ss4rq")
+upgradeScene = ExtResource("2_qtpcy")

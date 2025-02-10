@@ -1,5 +1,6 @@
 using Godot;
 using VampireSurvivors.scripts.weapons;
+using VampireSurvivors.scripts.weapons.attributes;
 
 namespace VampireSurvivors.scripts.enemies;
 
@@ -44,7 +45,7 @@ public partial class EnemyMovementComponent : Node2D
 
 	public void Stun(IStunAttribute stunAttribute)
 	{
-		if (!stunTimer.IsStopped())
+		if (!stunTimer.IsStopped() || stunAttribute.StunDuration <= 0)
 		{
 			return;
 		}

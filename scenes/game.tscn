@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwnp374k82enh"]
+[gd_scene load_steps=7 format=3 uid="uid://dwnp374k82enh"]
 
 [ext_resource type="PackedScene" uid="uid://cm0cnm0hnigen" path="res://scenes/player.tscn" id="1_qeg56"]
 [ext_resource type="PackedScene" uid="uid://b2yc6cnjmn31t" path="res://scenes/level.tscn" id="2_6t6ws"]
 [ext_resource type="PackedScene" uid="uid://ddtwilpnbwtvd" path="res://scenes/wave_manager.tscn" id="4_30t26"]
 [ext_resource type="PackedScene" uid="uid://dd4m3as575pnm" path="res://scenes/ui.tscn" id="4_hfipb"]
+[ext_resource type="PackedScene" uid="uid://b2r805uah68yj" path="res://scenes/upgrade.tscn" id="5_0b5ka"]
+[ext_resource type="Resource" uid="uid://do0qe81v0opav" path="res://resources/stun_upgrade.tres" id="6_t5e72"]
 
 [node name="Game" type="Node2D"]
 
@@ -20,3 +22,7 @@ collision_mask = 1
 Speed = 300
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="Upgrade" parent="." instance=ExtResource("5_0b5ka")]
+position = Vector2(154, 144)
+upgrade = ExtResource("6_t5e72")

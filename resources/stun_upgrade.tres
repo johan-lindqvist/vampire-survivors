@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="StunUpgrade" load_steps=3 format=3 uid="uid://do0qe81v0opav"]
+
+[ext_resource type="Texture2D" uid="uid://cn1qur7kw4q5h" path="res://assets/enemies/skull/skull_v2_1.png" id="1_f885d"]
+[ext_resource type="Script" path="res://scripts/weapons/upgrades/StunUpgrade.cs" id="1_p4esd"]
+
+[resource]
+script = ExtResource("1_p4esd")
+Texture = ExtResource("1_f885d")
+UpgradeText = "Stun"

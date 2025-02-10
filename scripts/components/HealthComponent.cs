@@ -1,6 +1,7 @@
 using System;
 using Godot;
 using VampireSurvivors.scripts.weapons;
+using VampireSurvivors.scripts.weapons.attributes;
 
 namespace VampireSurvivors.scripts.components;
 

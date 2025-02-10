@@ -12,7 +12,7 @@ public partial class Upgrade : Area2D
 	private Label upgradeLabel = null!;
 
 	[Export]
-	private BaseUpgrade upgrade = null!;
+	public BaseUpgrade UpgradeType { get; set; } = null!;
 
 	public override void _Notification(int what)
 	{
@@ -25,7 +25,7 @@ public partial class Upgrade : Area2D
 	public override void _Ready()
 	{
 		BodyEntered += OnBodyEntered;
-		upgradeLabel.Text = upgrade.UpgradeText;
+		// upgradeLabel.Text = UpgradeType.UpgradeText;
 	}
 
 	private void OnBodyEntered(Node2D body)
@@ -35,7 +35,7 @@ public partial class Upgrade : Area2D
 			return;
 		}
 
-		player.WeaponUpgrades = player.WeaponUpgrades.Add(upgrade);
+		player.WeaponUpgrades = player.WeaponUpgrades.Add(UpgradeType);
 		QueueFree();
 	}
 }

@@ -3,6 +3,7 @@ using Godot;
 using GodotUtilities;
 using VampireSurvivors.scripts.components;
 using VampireSurvivors.scripts.weapons;
+using VampireSurvivors.scripts.weapons.attributes;
 
 namespace VampireSurvivors.scripts.enemies;
 
@@ -23,6 +24,9 @@ public partial class Enemy : Node2D
 
 	[Node]
 	private ItemDropComponent itemDropComponent = null!;
+
+	[Node]
+	private UpgradeDropComponent upgradeDropComponent = null!;
 
 	public Action<Enemy>? OnDeath;
 
@@ -50,6 +54,7 @@ public partial class Enemy : Node2D
 		isDead = true;
 		OnDeath?.Invoke(this);
 		itemDropComponent?.DropItem();
+		upgradeDropComponent.Drop();
 		animationComponent.PlayAnimation("death", QueueFree);
 	}
 

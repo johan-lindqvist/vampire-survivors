@@ -1,5 +1,7 @@
 ﻿using Godot;
 using GodotUtilities;
+using VampireSurvivors.scripts.player;
+using VampireSurvivors.scripts.weapons.upgrades;
 
 namespace VampireSurvivors.scripts.weapons;
 
@@ -38,8 +40,20 @@ public partial class Weapon : Node2D
 	public void Shoot()
 	{
 		var arrow = arrowScene.Instantiate<Arrow>();
+
 		arrow.Position = shootingPoint.GlobalPosition;
 		arrow.Rotation = shootingPoint.GlobalRotation;
+
+		foreach (var weaponUpgrade in Player.Instance.WeaponUpgrades)
+		{
+			if (weaponUpgrade is not IUpgrade upgrade)
+			{
+				return;
+			}
+
+			upgrade.ApplyUpgrade(arrow);
+		}
+
 		GetTree().CurrentScene.AddChild(arrow);
 	}
 }

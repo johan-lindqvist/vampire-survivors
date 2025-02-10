@@ -1,6 +1,8 @@
+using System.Collections.Immutable;
 using Godot;
 using GodotUtilities;
 using VampireSurvivors.scripts.ui;
+using VampireSurvivors.scripts.weapons.upgrades;
 
 namespace VampireSurvivors.scripts.player;
 
@@ -22,6 +24,8 @@ public partial class Player : CharacterBody2D
 
 	[Node]
 	private AnimatedSprite2D characterSprite = null!;
+
+	public ImmutableList<BaseUpgrade> WeaponUpgrades { get; set; } = ImmutableList<BaseUpgrade>.Empty;
 
 	private PackedScene arrowScene = GD.Load<PackedScene>("res://scenes/arrow.tscn");
 

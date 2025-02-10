@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bhfyfxnldnql6"]
+[gd_scene load_steps=28 format=3 uid="uid://bhfyfxnldnql6"]
 
 [ext_resource type="Script" path="res://scripts/enemies/Enemy.cs" id="1_wi50l"]
 [ext_resource type="Texture2D" uid="uid://ca285kb0tn4px" path="res://assets/enemies/skeleton/run_sheet.png" id="2_d1akt"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://2opy4tq8itjm" path="res://scenes/components/enemy_movement_component.tscn" id="5_6t8si"]
 [ext_resource type="PackedScene" uid="uid://b3adtd5s4a2tr" path="res://scenes/components/enemy_attack_component.tscn" id="6_7hwpc"]
 [ext_resource type="PackedScene" uid="uid://8gtgsl6opbe7" path="res://scenes/components/item_drop_component.tscn" id="6_wcywm"]
+[ext_resource type="PackedScene" uid="uid://c3trujswudy1r" path="res://scenes/components/upgrade_drop_component.tscn" id="10_4iw4h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wy7xu"]
 atlas = ExtResource("2_jd8jc")
@@ -156,6 +157,8 @@ shape = SubResource("CapsuleShape2D_nytn2")
 
 [node name="ItemDropComponent" parent="." instance=ExtResource("6_wcywm")]
 visible = false
+
+[node name="UpgradeDropComponent" parent="." instance=ExtResource("10_4iw4h")]
 
 [connection signal="body_entered" from="EnemyAttackComponent" to="EnemyAttackComponent" method="OnBodyEntered"]
 [connection signal="body_exited" from="EnemyAttackComponent" to="EnemyAttackComponent" method="OnBodyExited"]

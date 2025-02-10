@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="SpeedUpgrade" load_steps=2 format=3 uid="uid://cophu1h1kud1t"]
+
+[ext_resource type="Script" path="res://scripts/weapons/upgrades/SpeedUpgrade.cs" id="1_2sxki"]
+
+[resource]
+script = ExtResource("1_2sxki")
+UpgradeText = "Speed"

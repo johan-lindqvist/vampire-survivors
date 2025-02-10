@@ -54,7 +54,7 @@ public partial class Enemy : Node2D
 		isDead = true;
 		OnDeath?.Invoke(this);
 		itemDropComponent?.DropItem();
-		upgradeDropComponent.Drop();
+		// upgradeDropComponent.Drop();
 		animationComponent.PlayAnimation("death", QueueFree);
 	}
 

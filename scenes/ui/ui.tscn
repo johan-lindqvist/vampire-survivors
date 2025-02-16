@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dd4m3as575pnm"]
+[gd_scene load_steps=3 format=3 uid="uid://dd4m3as575pnm"]
 
 [ext_resource type="Script" path="res://scripts/ui/UI.cs" id="1_e5py5"]
-[ext_resource type="Script" path="res://scripts/ui/UIAnimationHoverNode.cs" id="2_7x3xr"]
-[ext_resource type="Script" path="res://scripts/ui/UIAnimationEnterNode.cs" id="3_r48lh"]
+[ext_resource type="Script" path="res://scripts/ui/UIAnimationNode.cs" id="2_rco1u"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_e5py5")
@@ -37,17 +36,25 @@ layout_mode = 2
 step = 1.0
 show_percentage = false
 
-[node name="UIAnimationEnterNode" type="Node" parent="Control/MarginContainer/VBoxContainer/ExperienceBar"]
-script = ExtResource("3_r48lh")
-Duration = 0.5
-Scale = Vector2(0, 0)
-
-[node name="UIAnimationHoverNode" type="Node" parent="Control/MarginContainer/VBoxContainer/ExperienceBar"]
-script = ExtResource("2_7x3xr")
-Scale = Vector2(1.2, 1.2)
+[node name="UIAnimationNode" type="Node" parent="Control/MarginContainer/VBoxContainer/ExperienceBar"]
+script = ExtResource("2_rco1u")
+runEnterAnimation = true
+runHoverAnimation = true
+enterDelay = 3.0
+enterDuration = 0.5
+enterScale = 0.0
+hoverDuration = 0.2
+hoverScale = 1.2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="UIAnimationNode" type="Node" parent="Control/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("waitFor")]
+script = ExtResource("2_rco1u")
+runEnterAnimation = true
+waitFor = NodePath("../../ExperienceBar/UIAnimationNode")
+enterDuration = 0.5
+enterScale = 0.0
 
 [node name="LevelText" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2

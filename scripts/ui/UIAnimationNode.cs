@@ -1,91 +1,223 @@
+using System;
 using Godot;
 using Godot.Collections;
 
 namespace VampireSurvivors.scripts.ui;
 
-public abstract partial class UIAnimationNode : Node
+[GlobalClass]
+public partial class UIAnimationNode : Node
 {
-	[Export]
-	protected float Duration = 0.2f;
+	private Action? onAnimationFinished;
+
+	private bool enterAnimationFinished = false;
+
+	private Dictionary<string, Variant> defaultValues = new();
+
+	private Dictionary<string, Variant> enterValues = new();
+
+	private Dictionary<string, Variant> hoverValues = new();
+
+	private Control? target;
+
+	// Options
 
 	[Export]
-	protected float Delay = 0.0f;
+	private bool runEnterAnimation = false;
 
 	[Export]
-	protected bool RunInParallel = true;
+	private bool runHoverAnimation = false;
 
 	[Export]
-	protected Vector2 Size;
+	private UIAnimationNode? waitFor;
+
+	// Enter Options
+
+	[ExportGroup("Enter Animation Options")]
+	[Export]
+	private bool enterRunInParallel = true;
 
 	[Export]
-	protected Vector2 Scale = new Vector2(1, 1);
+	private float enterDelay = 0f;
 
 	[Export]
-	protected Vector2 Position;
+	private float enterDuration = 0f;
 
 	[Export]
-	protected float Rotation = 0f;
+	private float enterScale = 1f;
 
 	[Export]
-	protected Color Modulate = Colors.White;
+	private Vector2 enterPosition = new Vector2(0, 0);
 
 	[Export]
-	protected Tween.TransitionType TransitionType = Tween.TransitionType.Linear;
+	private float enterRotation = 0f;
 
 	[Export]
-	protected Tween.EaseType EaseType = Tween.EaseType.Out;
+	private Tween.TransitionType enterTransitionType = Tween.TransitionType.Linear;
 
-	private Array<string> properties = new() { "size", "scale", "position", "rotation", "self_modulate" };
+	[Export]
+	private Tween.EaseType enterEaseType = Tween.EaseType.Out;
 
-	protected Control Target;
+	[Export]
+	private Array<string> enterProperties = ["scale", "position", "rotation"];
 
-	protected Dictionary<string, Variant> DefaultValues = new();
+	// Hover Options
 
-	protected Dictionary<string, Variant> AnimationValues = new();
+	[ExportGroup("Hover Animation Options")]
+	[Export]
+	private bool hoverRunInParallel = true;
+
+	[Export]
+	private float hoverDelay = 0f;
+
+	[Export]
+	private float hoverDuration = 0f;
+
+	[Export]
+	private float hoverScale = 1f;
+
+	[Export]
+	private Vector2 hoverPosition = new Vector2(0, 0);
+
+	[Export]
+	private float hoverRotation = 0f;
+
+	[Export]
+	private Tween.TransitionType hoverTransitionType = Tween.TransitionType.Linear;
+
+	[Export]
+	private Tween.EaseType hoverEaseType = Tween.EaseType.Out;
+
+	[Export]
+	private Array<string> hoverProperties = ["scale", "position", "rotation"];
 
 	public override void _Ready()
 	{
-		Target = GetParent<Control>();
+		target = GetParent<Control>();
 
+		Setup();
 		ConnectSignals();
+		Enter();
 	}
 
-	protected virtual void Setup()
+	private void Setup()
 	{
-		Target.PivotOffset = Target.Size / 2; // Makes the animations run from the center of the node
+		if (target == null)
+			return;
 
-		DefaultValues.Add("size", Target.Size);
-		DefaultValues.Add("scale", Target.Scale);
-		DefaultValues.Add("position", Target.Position);
-		DefaultValues.Add("rotation", Target.Rotation);
-		DefaultValues.Add("self_modulate", Target.Modulate);
+		target.PivotOffset = target.Size / 2; // Makes the animations run from the center of the node
 
-		AnimationValues.Add("size", Target.Size + Size);
-		AnimationValues.Add("scale", Target.Scale *= Scale);
-		AnimationValues.Add("position", Target.Position + Position);
-		AnimationValues.Add("rotation", Target.Rotation + float.DegreesToRadians(Rotation));
-		AnimationValues.Add("self_modulate", Modulate);
+		UpdateDictionaryProperty(defaultValues, "scale", target.Scale);
+		UpdateDictionaryProperty(defaultValues, "position", target.Position);
+		UpdateDictionaryProperty(defaultValues, "rotation", target.Rotation);
+
+		UpdateDictionaryProperty(enterValues, "scale", target.Scale * +enterScale);
+		UpdateDictionaryProperty(enterValues, "position", target.Position + enterPosition);
+		UpdateDictionaryProperty(enterValues, "rotation", target.Rotation + float.DegreesToRadians(enterRotation));
+
+		UpdateDictionaryProperty(hoverValues, "scale", target.Scale * +hoverScale);
+		UpdateDictionaryProperty(hoverValues, "position", target.Position + hoverPosition);
+		UpdateDictionaryProperty(hoverValues, "rotation", target.Rotation + float.DegreesToRadians(hoverRotation));
 	}
 
-	protected virtual void ConnectSignals()
+	private void ConnectSignals()
 	{
-		Target.Resized += Setup;
-	}
+		if (target == null)
+			return;
 
-	protected void AddTween(Dictionary<string, Variant> endValues, bool instant = false)
-	{
-		var tween = GetTree().CreateTween();
-		var duration = instant ? 0 : Duration;
-		var parallel = instant || RunInParallel;
-		var transitionType = instant ? Tween.TransitionType.Linear : TransitionType;
+		target.Resized += Setup;
+		target.MouseEntered += OnMouseEntered;
+		target.MouseExited += OnMouseExited;
 
-		tween.SetParallel(parallel);
-		tween.SetTrans(transitionType);
-		tween.SetEase(EaseType);
-
-		foreach (var property in properties)
+		if (waitFor != null)
 		{
-			tween.TweenProperty(Target, property, endValues[property], duration);
+			waitFor.onAnimationFinished += Enter;
+		}
+	}
+
+	private void Enter()
+	{
+		if (!runEnterAnimation)
+			return;
+
+		AddTween(enterValues, 0, 0, true, Tween.TransitionType.Linear, Tween.EaseType.In);
+
+		if (waitFor is { enterAnimationFinished: false })
+			return;
+
+		AddTween(
+			defaultValues,
+			enterDelay,
+			enterDuration,
+			enterRunInParallel,
+			enterTransitionType,
+			enterEaseType,
+			() =>
+			{
+				enterAnimationFinished = true;
+				onAnimationFinished?.Invoke();
+			}
+		);
+	}
+
+	private void OnMouseEntered()
+	{
+		if (!runHoverAnimation)
+			return;
+
+		AddTween(hoverValues, hoverDelay, hoverDuration, hoverRunInParallel, hoverTransitionType, hoverEaseType);
+	}
+
+	private void OnMouseExited() => AddTween(defaultValues, hoverDelay, hoverDuration, hoverRunInParallel, hoverTransitionType, hoverEaseType);
+
+	private static void UpdateDictionaryProperty(Dictionary<string, Variant> dictionary, string property, Variant value)
+	{
+		if (dictionary.ContainsKey(property))
+		{
+			dictionary[property] = value;
+		}
+		else
+		{
+			dictionary.Add(property, value);
+		}
+	}
+
+	private void AddTween(
+		Dictionary<string, Variant> values,
+		float delay,
+		float duration,
+		bool parallel,
+		Tween.TransitionType transitionType,
+		Tween.EaseType easeType,
+		Action? onFinished = null
+	)
+	{
+		void RunTween()
+		{
+			var tween = GetTree().CreateTween();
+
+			tween.SetParallel(parallel);
+			tween.SetTrans(transitionType);
+			tween.SetEase(easeType);
+
+			if (onFinished != null)
+			{
+				tween.Finished += onFinished;
+			}
+
+			foreach (var property in values.Keys)
+			{
+				tween.TweenProperty(target, property, values[property], duration);
+			}
+		}
+
+		if (delay > 0)
+		{
+			var timer = GetTree().CreateTimer(delay);
+			timer.Timeout += RunTween;
+		}
+		else
+		{
+			RunTween();
 		}
 	}
 }

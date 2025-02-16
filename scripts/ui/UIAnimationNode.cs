@@ -94,9 +94,11 @@ public partial class UIAnimationNode : Node
 	{
 		target = GetParent<Control>();
 
-		Setup();
+		// Setup();
+		// Enter();
 		ConnectSignals();
-		Enter();
+		CallDeferred("Setup");
+		CallDeferred("Enter");
 	}
 
 	private void Setup()

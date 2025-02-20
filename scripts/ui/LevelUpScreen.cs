@@ -1,5 +1,7 @@
 using Godot;
 
+namespace VampireSurvivors.scripts.ui;
+
 public partial class LevelUpScreen : Control
 {
 	[Export]
@@ -13,6 +15,8 @@ public partial class LevelUpScreen : Control
 
 	public override void _Ready()
 	{
+		GetTree().Paused = true;
+
 		abilityOne.SetAbilityName("Ability One");
 		abilityOne.SetAbilityDescription("Description one...");
 
@@ -30,5 +34,7 @@ public partial class LevelUpScreen : Control
 	private void OnAbilityClicked(LevelUpAbility ability)
 	{
 		GD.Print($"{ability.Name} Clicked");
+		GetTree().Paused = false;
+		QueueFree();
 	}
 }

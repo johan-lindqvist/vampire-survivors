@@ -27,8 +27,6 @@ public partial class Player : CharacterBody2D
 
 	public ImmutableList<BaseUpgrade> WeaponUpgrades { get; set; } = ImmutableList<BaseUpgrade>.Empty;
 
-	private PackedScene arrowScene = GD.Load<PackedScene>("res://scenes/arrow.tscn");
-
 	public static Player Instance { get; private set; } = null!;
 
 	public override void _Notification(int what)
@@ -83,12 +81,18 @@ public partial class Player : CharacterBody2D
 
 		if (Experience >= Level * 100)
 		{
-			Level++;
-			Experience = 0;
-			UI.Instance.SetLevelLabel(Level);
-			UI.Instance.SetExperienceBar(0);
-			UI.Instance.SetExperienceBarMax(Level * 100);
+			OnLevelUp();
 		}
+	}
+
+	private void OnLevelUp()
+	{
+		Level++;
+		Experience = 0;
+		UI.Instance.SetLevelLabel(Level);
+		UI.Instance.SetExperienceBar(0);
+		UI.Instance.SetExperienceBarMax(Level * 100);
+		UI.Instance.ShowLevelUpScreen();
 	}
 
 	private void Die()

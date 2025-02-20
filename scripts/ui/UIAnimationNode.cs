@@ -51,6 +51,9 @@ public partial class UIAnimationNode : Node
 	[Export]
 	private float enterRotation = 0f;
 
+	[Export(PropertyHint.Range, "0,1")]
+	private float enterOpacity = 1f;
+
 	[Export]
 	private Tween.TransitionType enterTransitionType = Tween.TransitionType.Linear;
 
@@ -58,7 +61,7 @@ public partial class UIAnimationNode : Node
 	private Tween.EaseType enterEaseType = Tween.EaseType.Out;
 
 	[Export]
-	private Array<string> enterProperties = ["scale", "position", "rotation"];
+	private Array<string> enterProperties = ["scale", "position", "rotation", "modulate"];
 
 	// Hover Options
 
@@ -81,6 +84,9 @@ public partial class UIAnimationNode : Node
 	[Export]
 	private float hoverRotation = 0f;
 
+	[Export(PropertyHint.Range, "0,1")]
+	private float hoverOpacity = 1f;
+
 	[Export]
 	private Tween.TransitionType hoverTransitionType = Tween.TransitionType.Linear;
 
@@ -88,7 +94,7 @@ public partial class UIAnimationNode : Node
 	private Tween.EaseType hoverEaseType = Tween.EaseType.Out;
 
 	[Export]
-	private Array<string> hoverProperties = ["scale", "position", "rotation"];
+	private Array<string> hoverProperties = ["scale", "position", "rotation", "modulate"];
 
 	public override void _Ready()
 	{
@@ -109,14 +115,17 @@ public partial class UIAnimationNode : Node
 		UpdateDictionaryProperty(defaultValues, "scale", target.Scale);
 		UpdateDictionaryProperty(defaultValues, "position", target.Position);
 		UpdateDictionaryProperty(defaultValues, "rotation", target.Rotation);
+		UpdateDictionaryProperty(defaultValues, "modulate", target.Modulate);
 
 		UpdateDictionaryProperty(enterValues, "scale", target.Scale * +enterScale);
 		UpdateDictionaryProperty(enterValues, "position", target.Position + enterPosition);
 		UpdateDictionaryProperty(enterValues, "rotation", target.Rotation + float.DegreesToRadians(enterRotation));
+		UpdateDictionaryProperty(enterValues, "modulate", GetColorWithAlpha(target.Modulate, enterOpacity));
 
 		UpdateDictionaryProperty(hoverValues, "scale", target.Scale * +hoverScale);
 		UpdateDictionaryProperty(hoverValues, "position", target.Position + hoverPosition);
 		UpdateDictionaryProperty(hoverValues, "rotation", target.Rotation + float.DegreesToRadians(hoverRotation));
+		UpdateDictionaryProperty(hoverValues, "modulate", GetColorWithAlpha(target.Modulate, hoverOpacity));
 	}
 
 	private void ConnectSignals()
@@ -181,6 +190,13 @@ public partial class UIAnimationNode : Node
 		}
 	}
 
+	private Color GetColorWithAlpha(Color color, float alpha)
+	{
+		var tmpColor = color;
+		tmpColor.A *= alpha;
+		return tmpColor;
+	}
+
 	private void AddTween(
 		Dictionary<string, Variant> values,
 		float delay,
@@ -193,8 +209,12 @@ public partial class UIAnimationNode : Node
 	{
 		void RunTween()
 		{
-			var tween = GetTree().CreateTween();
+			if (target == null)
+				return;
 
+			var tween = target.CreateTween();
+
+			tween.SetPauseMode(Tween.TweenPauseMode.Bound);
 			tween.SetParallel(parallel);
 			tween.SetTrans(transitionType);
 			tween.SetEase(easeType);

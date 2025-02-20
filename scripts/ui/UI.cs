@@ -12,6 +12,13 @@ public partial class UI : CanvasLayer
 	[Node]
 	private Label levelValue = null!;
 
+	[Export]
+	private Control container;
+
+	private LevelUpScreen levelUpScreen;
+
+	private PackedScene levelUpScreenScene = GD.Load<PackedScene>("res://scenes/ui/level_up_screen.tscn");
+
 	public static UI Instance { get; private set; } = null!;
 
 	public override void _Notification(int what)
@@ -48,5 +55,11 @@ public partial class UI : CanvasLayer
 	public void SetLevelLabel(int value)
 	{
 		levelValue.Text = value.ToString();
+	}
+
+	public void ShowLevelUpScreen()
+	{
+		levelUpScreen = levelUpScreenScene.Instantiate<LevelUpScreen>();
+		container.AddChild(levelUpScreen);
 	}
 }

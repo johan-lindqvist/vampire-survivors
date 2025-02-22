@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://brb1a6xlxoqvf"]
 
-[ext_resource type="PackedScene" uid="uid://c2mfgvih36u1y" path="res://scenes/ui/level_up_ability.tscn" id="1_inif0"]
+[ext_resource type="PackedScene" uid="uid://c2mfgvih36u1y" path="res://scenes/ui/level_up_card.tscn" id="1_inif0"]
 [ext_resource type="Script" path="res://scripts/ui/LevelUpScreen.cs" id="1_iuwjv"]
 [ext_resource type="Script" path="res://scripts/ui/UIAnimationNode.cs" id="2_gnwku"]
 
-[node name="LevelUpScreen" type="Control" node_paths=PackedStringArray("abilityOne", "abilityTwo", "abilityThree")]
+[node name="LevelUpScreen" type="Control" node_paths=PackedStringArray("cardOne", "cardTwo", "cardThree")]
 process_mode = 2
 layout_mode = 3
 anchors_preset = 15
@@ -13,9 +13,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iuwjv")
-abilityOne = NodePath("MarginContainer/CenterContainer/HBoxContainer/LevelUpAbility1")
-abilityTwo = NodePath("MarginContainer/CenterContainer/HBoxContainer/LevelUpAbility2")
-abilityThree = NodePath("MarginContainer/CenterContainer/HBoxContainer/LevelUpAbility3")
+cardOne = NodePath("MarginContainer/CenterContainer/HBoxContainer/LevelUpCard1")
+cardTwo = NodePath("MarginContainer/CenterContainer/HBoxContainer/LevelUpCard2")
+cardThree = NodePath("MarginContainer/CenterContainer/HBoxContainer/LevelUpCard3")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -57,11 +57,11 @@ layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="LevelUpAbility1" parent="MarginContainer/CenterContainer/HBoxContainer" instance=ExtResource("1_inif0")]
+[node name="LevelUpCard1" parent="MarginContainer/CenterContainer/HBoxContainer" instance=ExtResource("1_inif0")]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="UIAnimationNode" type="Node" parent="MarginContainer/CenterContainer/HBoxContainer/LevelUpAbility1" node_paths=PackedStringArray("waitFor")]
+[node name="UIAnimationNode" type="Node" parent="MarginContainer/CenterContainer/HBoxContainer/LevelUpCard1" node_paths=PackedStringArray("waitFor")]
 script = ExtResource("2_gnwku")
 runEnterAnimation = true
 runHoverAnimation = true
@@ -74,15 +74,15 @@ hoverScale = 1.1
 hoverPosition = Vector2(0, -10)
 hoverTransitionType = 7
 
-[node name="LevelUpAbility2" parent="MarginContainer/CenterContainer/HBoxContainer" instance=ExtResource("1_inif0")]
+[node name="LevelUpCard2" parent="MarginContainer/CenterContainer/HBoxContainer" instance=ExtResource("1_inif0")]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="UIAnimationNode" type="Node" parent="MarginContainer/CenterContainer/HBoxContainer/LevelUpAbility2" node_paths=PackedStringArray("waitFor")]
+[node name="UIAnimationNode" type="Node" parent="MarginContainer/CenterContainer/HBoxContainer/LevelUpCard2" node_paths=PackedStringArray("waitFor")]
 script = ExtResource("2_gnwku")
 runEnterAnimation = true
 runHoverAnimation = true
-waitFor = NodePath("../../LevelUpAbility1/UIAnimationNode")
+waitFor = NodePath("../../LevelUpCard1/UIAnimationNode")
 enterDuration = 0.2
 enterScale = 0.0
 enterTransitionType = 4
@@ -91,15 +91,15 @@ hoverScale = 1.1
 hoverPosition = Vector2(0, -10)
 hoverTransitionType = 7
 
-[node name="LevelUpAbility3" parent="MarginContainer/CenterContainer/HBoxContainer" instance=ExtResource("1_inif0")]
+[node name="LevelUpCard3" parent="MarginContainer/CenterContainer/HBoxContainer" instance=ExtResource("1_inif0")]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="UIAnimationNode" type="Node" parent="MarginContainer/CenterContainer/HBoxContainer/LevelUpAbility3" node_paths=PackedStringArray("waitFor")]
+[node name="UIAnimationNode" type="Node" parent="MarginContainer/CenterContainer/HBoxContainer/LevelUpCard3" node_paths=PackedStringArray("waitFor")]
 script = ExtResource("2_gnwku")
 runEnterAnimation = true
 runHoverAnimation = true
-waitFor = NodePath("../../LevelUpAbility2/UIAnimationNode")
+waitFor = NodePath("../../LevelUpCard2/UIAnimationNode")
 enterDuration = 0.2
 enterScale = 0.0
 enterTransitionType = 4

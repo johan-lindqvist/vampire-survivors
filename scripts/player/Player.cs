@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using Godot;
+using Godot.Collections;
 using GodotUtilities;
 using VampireSurvivors.scripts.ui;
 using VampireSurvivors.scripts.weapons.upgrades;
@@ -29,6 +30,9 @@ public partial class Player : CharacterBody2D
 
 	public static Player Instance { get; private set; } = null!;
 
+	[Export]
+	public Array<BaseUpgrade> AvailableUpgrades { get; set; } = [];
+
 	public override void _Notification(int what)
 	{
 		if (what == NotificationSceneInstantiated)
@@ -43,6 +47,7 @@ public partial class Player : CharacterBody2D
 		characterSprite.Play("idle");
 		UI.Instance.SetLevelLabel(Level);
 		UI.Instance.SetExperienceBarMax(Level * 100);
+		UI.Instance.OnUpgradeSelected += OnUpgradeSelected;
 		healthBar.SetMaxHealth(Health);
 	}
 
@@ -92,7 +97,12 @@ public partial class Player : CharacterBody2D
 		UI.Instance.SetLevelLabel(Level);
 		UI.Instance.SetExperienceBar(0);
 		UI.Instance.SetExperienceBarMax(Level * 100);
-		UI.Instance.ShowLevelUpScreen();
+		UI.Instance.ShowLevelUpScreen(AvailableUpgrades);
+	}
+
+	private void OnUpgradeSelected(BaseUpgrade upgrade)
+	{
+		WeaponUpgrades.Add(upgrade);
 	}
 
 	private void Die()

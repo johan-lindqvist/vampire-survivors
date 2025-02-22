@@ -1,5 +1,8 @@
+using System;
 using Godot;
+using Godot.Collections;
 using GodotUtilities;
+using VampireSurvivors.scripts.weapons.upgrades;
 
 namespace VampireSurvivors.scripts.ui;
 
@@ -20,6 +23,8 @@ public partial class UI : CanvasLayer
 	private PackedScene levelUpScreenScene = GD.Load<PackedScene>("res://scenes/ui/level_up_screen.tscn");
 
 	public static UI Instance { get; private set; } = null!;
+
+	public Action<BaseUpgrade>? OnUpgradeSelected;
 
 	public override void _Notification(int what)
 	{
@@ -57,9 +62,11 @@ public partial class UI : CanvasLayer
 		levelValue.Text = value.ToString();
 	}
 
-	public void ShowLevelUpScreen()
+	public void ShowLevelUpScreen(Array<BaseUpgrade> upgrades)
 	{
 		levelUpScreen = levelUpScreenScene.Instantiate<LevelUpScreen>();
+		levelUpScreen.OnUpgradeSelected += OnUpgradeSelected;
+		levelUpScreen.SetUpgradeCards(upgrades);
 		container.AddChild(levelUpScreen);
 	}
 }

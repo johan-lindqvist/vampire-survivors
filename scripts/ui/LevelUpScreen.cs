@@ -1,39 +1,48 @@
+using System;
+using System.Collections.Generic;
 using Godot;
+using Godot.Collections;
+using VampireSurvivors.scripts.weapons.upgrades;
 
 namespace VampireSurvivors.scripts.ui;
 
 public partial class LevelUpScreen : Control
 {
 	[Export]
-	private LevelUpAbility abilityOne;
+	private LevelUpCard cardOne;
 
 	[Export]
-	private LevelUpAbility abilityTwo;
+	private LevelUpCard cardTwo;
 
 	[Export]
-	private LevelUpAbility abilityThree;
+	private LevelUpCard cardThree;
+
+	public Action<BaseUpgrade>? OnUpgradeSelected;
 
 	public override void _Ready()
 	{
 		GetTree().Paused = true;
-
-		abilityOne.SetAbilityName("Ability One");
-		abilityOne.SetAbilityDescription("Description one...");
-
-		abilityTwo.SetAbilityName("Ability Two");
-		abilityTwo.SetAbilityDescription("Description two...");
-
-		abilityThree.SetAbilityName("Ability Three");
-		abilityThree.SetAbilityDescription("Description three...");
-
-		abilityOne.OnClicked += OnAbilityClicked;
-		abilityTwo.OnClicked += OnAbilityClicked;
-		abilityThree.OnClicked += OnAbilityClicked;
 	}
 
-	private void OnAbilityClicked(LevelUpAbility ability)
+	public void SetUpgradeCards(Array<BaseUpgrade> upgrades)
 	{
-		GD.Print($"{ability.Name} Clicked");
+		var upgradeOne = upgrades[0];
+		var upgradeTwo = upgrades[1];
+		var upgradeThree = upgrades[2];
+
+		cardOne.SetUpgrade(upgradeOne);
+		cardOne.OnClicked += OnCardClicked;
+
+		cardTwo.SetUpgrade(upgradeTwo);
+		cardTwo.OnClicked += OnCardClicked;
+
+		cardThree.SetUpgrade(upgradeThree);
+		cardThree.OnClicked += OnCardClicked;
+	}
+
+	private void OnCardClicked(LevelUpCard card, BaseUpgrade upgrade)
+	{
+		OnUpgradeSelected?.Invoke(upgrade);
 		GetTree().Paused = false;
 		QueueFree();
 	}

@@ -10,7 +10,7 @@ public partial class Arrow : Area2D, IDamageAttribute, IStunAttribute
 
 	private Vector2 startingPosition;
 
-	public float Damage { get; set; } = 1f;
+	public float Damage { get; set; } = 10f;
 
 	public float StunDuration { get; set; } = 0f;
 

@@ -1,9 +1,27 @@
-[gd_scene load_steps=11 format=3 uid="uid://cm0cnm0hnigen"]
+[gd_scene load_steps=17 format=3 uid="uid://cm0cnm0hnigen"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.cs" id="1_v4t6v"]
 [ext_resource type="Texture2D" uid="uid://b6rm5807fa5ub" path="res://assets/player/idle_sheet.png" id="2_gryul"]
+[ext_resource type="Script" path="res://scripts/weapons/upgrades/DamageUpgrade.cs" id="2_o2shh"]
 [ext_resource type="PackedScene" uid="uid://dibwff61ev5ip" path="res://scenes/weapon.tscn" id="3_4a0al"]
+[ext_resource type="Script" path="res://scripts/weapons/upgrades/SpeedUpgrade.cs" id="3_o7qon"]
 [ext_resource type="PackedScene" uid="uid://8sofdwfui6nr" path="res://scenes/health_bar.tscn" id="4_bp3rg"]
+[ext_resource type="Script" path="res://scripts/weapons/upgrades/StunUpgrade.cs" id="4_s64vw"]
+
+[sub_resource type="Resource" id="Resource_iyw0o"]
+script = ExtResource("2_o2shh")
+Name = "Damage"
+Description = "Increases your arrow damage"
+
+[sub_resource type="Resource" id="Resource_r13et"]
+script = ExtResource("3_o7qon")
+Name = "Speed"
+Description = "Increases your arrow speed"
+
+[sub_resource type="Resource" id="Resource_xs7j0"]
+script = ExtResource("4_s64vw")
+Name = "Stun"
+Description = "Your arrow now stuns the enemy for a short duration"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vobhr"]
 size = Vector2(14, 25)
@@ -48,6 +66,7 @@ animations = [{
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_v4t6v")
+AvailableUpgrades = [SubResource("Resource_iyw0o"), SubResource("Resource_r13et"), SubResource("Resource_xs7j0")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.5)

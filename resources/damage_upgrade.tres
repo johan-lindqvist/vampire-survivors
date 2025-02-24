@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_y6yby")
-UpgradeText = "Damage"
+Name = "Damage"
+Description = "Increases your damage"

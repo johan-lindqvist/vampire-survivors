@@ -159,6 +159,3 @@ shape = SubResource("CapsuleShape2D_nytn2")
 visible = false
 
 [node name="UpgradeDropComponent" parent="." instance=ExtResource("10_4iw4h")]
-
-[connection signal="body_entered" from="EnemyAttackComponent" to="EnemyAttackComponent" method="OnBodyEntered"]
-[connection signal="body_exited" from="EnemyAttackComponent" to="EnemyAttackComponent" method="OnBodyExited"]

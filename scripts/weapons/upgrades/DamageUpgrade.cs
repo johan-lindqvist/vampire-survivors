@@ -7,6 +7,6 @@ public partial class DamageUpgrade : BaseUpgrade, IUpgrade
 {
 	public void ApplyUpgrade(Arrow arrow)
 	{
-		arrow.Damage *= 2;
+		arrow.Damage += 5;
 	}
 }

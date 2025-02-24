@@ -35,7 +35,7 @@ public partial class Upgrade : Area2D
 			return;
 		}
 
-		player.WeaponUpgrades = player.WeaponUpgrades.Add(UpgradeType);
+		player.WeaponUpgrades.Add(UpgradeType);
 		QueueFree();
 	}
 }

@@ -23,6 +23,12 @@ public partial class EnemyAttackComponent : Area2D
 		}
 	}
 
+	public override void _Ready()
+	{
+		BodyEntered += OnBodyEntered;
+		BodyExited += OnBodyExited;
+	}
+
 	public override void _Process(double delta)
 	{
 		AttackPlayer();
@@ -30,8 +36,6 @@ public partial class EnemyAttackComponent : Area2D
 
 	private void OnBodyEntered(Node2D node)
 	{
-		GD.Print(node.Name);
-
 		if (node is not Player player)
 		{
 			return;

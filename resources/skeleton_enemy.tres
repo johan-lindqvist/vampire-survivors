@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b2ptpddk66hq6"]
+
+[sub_resource type="CSharpScript" id="CSharpScript_710w5"]
+
+[resource]
+script = SubResource("CSharpScript_710w5")

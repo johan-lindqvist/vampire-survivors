@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_p4esd")
-UpgradeText = "Stun"
+Name = "Stun"
+Description = "Your arrows now stun their targets"

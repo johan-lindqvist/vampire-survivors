@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using Godot;
 using Godot.Collections;
@@ -26,7 +27,7 @@ public partial class Player : CharacterBody2D
 	[Node]
 	private AnimatedSprite2D characterSprite = null!;
 
-	public ImmutableList<BaseUpgrade> WeaponUpgrades { get; set; } = ImmutableList<BaseUpgrade>.Empty;
+	public List<BaseUpgrade> WeaponUpgrades { get; set; } = new();
 
 	public static Player Instance { get; private set; } = null!;
 

@@ -1,13 +1,18 @@
 ﻿using System;
 using Godot;
+using Godot.Collections;
 using GodotUtilities;
 using VampireSurvivors.scripts.components;
+using VampireSurvivors.scripts.enemies;
+using Array = Godot.Collections.Array;
 
 namespace VampireSurvivors.scripts;
 
 public partial class WaveManager : Node2D
 {
-	private PackedScene enemyScene = GD.Load<PackedScene>("res://scenes/enemies/skeleton_enemy.tscn");
+	private PackedScene skeletonEnemyScene = GD.Load<PackedScene>("res://scenes/enemies/skeleton_enemy.tscn");
+
+	private PackedScene skeletonWarriorEnemyScene = GD.Load<PackedScene>("res://scenes/enemies/skeleton_warrior_enemy.tscn");
 
 	private int currentWaveIndex;
 
@@ -19,8 +24,13 @@ public partial class WaveManager : Node2D
 
 	private Timer timer = new() { OneShot = true, WaitTime = 0.3f };
 
+	private Array<PackedScene> enemies = new();
+
 	public override void _Ready()
 	{
+		enemies.Add(skeletonEnemyScene);
+		enemies.Add(skeletonWarriorEnemyScene);
+
 		AddChild(timer);
 
 		timer.Timeout += TimerOnTimeout;
@@ -61,11 +71,19 @@ public partial class WaveManager : Node2D
 		}
 	}
 
+	private PackedScene GetRandomEnemyScene()
+	{
+		var index = Random.Shared.Next(0, enemies.Count);
+
+		return enemies[index];
+	}
+
 	private void SpawnEnemy()
 	{
-		var spawnedEnemy = enemyScene.Instantiate<enemies.Enemy>();
-		spawnedEnemy.Name = $"Enemy {spawnedEnemiesFromWave}";
+		var randomEnemy = GetRandomEnemyScene();
+		var spawnedEnemy = randomEnemy.Instantiate<Enemy>();
 		var spawnPosition = GetRandomSpawn();
+		spawnedEnemy.Name = $"Enemy {spawnedEnemiesFromWave}";
 		spawnedEnemy.Position = spawnPosition;
 		spawnedEnemy.OnDeath += OnEnemyDeath;
 
@@ -84,7 +102,7 @@ public partial class WaveManager : Node2D
 		}
 	}
 
-	private void OnEnemyDeath(enemies.Enemy enemy)
+	private void OnEnemyDeath(Enemy enemy)
 	{
 		enemy.OnDeath -= OnEnemyDeath;
 		deadEnemiesFromWave++;

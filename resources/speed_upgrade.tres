@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_2sxki")
-UpgradeText = "Speed"
+Name = "Speed"
+Description = "Increases your arrow speed"
